@@ -1,14 +1,15 @@
 .navbar {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: left;
+    justify-content: center;
 }
 
 .navbar__item {
-    flex-basis: 20%;
+    flex-basis: 10%;
     list-style-type: none;
 }
 
 .navbar__logo {
     max-height: 6rem;
+    max-width: 6rem;
 }
