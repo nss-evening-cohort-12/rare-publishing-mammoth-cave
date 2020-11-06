@@ -4,6 +4,7 @@ import { ApplicationViews } from "./ApplicationViews"
 import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
+import { Users } from "./users/Users"
 
 export const Rare = () => (
     <>
@@ -33,5 +34,17 @@ export const Rare = () => (
                 return <Register />
             }
         }} />
+
+        
+        <Route path="/users" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                        <Users />
+                    </>
+            } else {
+                return <Login />
+            }
+            }} 
+        />
     </>
 )
