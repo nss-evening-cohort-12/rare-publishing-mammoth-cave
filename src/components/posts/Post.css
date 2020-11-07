@@ -1,0 +1,14 @@
+.post-list {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-content: flex-start;
+}
+
+h2 {
+  margin: 5px;
+}
+
+.post-list:nth-child(odd) {
+  background-color: rgb(226, 235, 248);
+}
