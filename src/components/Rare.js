@@ -7,6 +7,7 @@ import { Register } from "./auth/Register"
 import { Users } from "./users/Users"
 import NewPost from './posts/NewPost'
 import Posts from './posts/Posts'
+import { UsersProvider } from "./users/UsersProvider"
 
 export const Rare = () => (
     <>
@@ -40,7 +41,9 @@ export const Rare = () => (
         <Route path="/users" render={() => {
             if (localStorage.getItem("rare_user_id")) {
                 return <>
-                        <Users />
+                        <UsersProvider>
+                            <Users />
+                        </UsersProvider>
                     </>
             } else {
                 return <Login />
