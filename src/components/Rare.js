@@ -8,6 +8,7 @@ import { Users } from "./users/Users"
 import NewPost from './posts/NewPost'
 import Posts from './posts/Posts'
 import { UsersProvider } from "./users/UsersProvider"
+import Categories from "./categories/Categories"
 
 export const Rare = () => (
     <>
@@ -70,6 +71,16 @@ export const Rare = () => (
                 return <Redirect to="/login" />
             }
         }} />
+
+        <Route path="/categories" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                    <Categories />
+                </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }}  />
 
         
     </>
