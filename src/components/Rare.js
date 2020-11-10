@@ -9,7 +9,9 @@ import MyPosts from './posts/MyPosts'
 import NewPost from './posts/NewPost'
 import Posts from './posts/Posts'
 import SinglePost from './posts/SinglePost'
+import EditPost from './posts/EditPost'
 import { UsersProvider } from "./users/UsersProvider"
+import Categories from "./categories/Categories"
 
 export const Rare = () => (
     <>
@@ -90,7 +92,27 @@ export const Rare = () => (
             } else {
                 return <Redirect to="/login" />
             }
-        }} />   
+        }} />
+
+        <Route path="/editpost/:postId" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                    <EditPost />
+                </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} /> 
+
+        <Route path="/categories" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                    <Categories />
+                    </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
 
 
         
