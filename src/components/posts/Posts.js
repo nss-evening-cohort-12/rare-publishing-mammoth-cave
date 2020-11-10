@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import Post from './Post';
 import './Posts.css'
 
@@ -21,9 +22,13 @@ class Posts extends React.Component {
 
   render() {
     const { posts } = this.state;
+    const newPost = `/newpost`
     const post = posts.map((post) => <Post key={post.id} post={post} />)
     return (
       <div>
+        <div className="container post-buttons">
+          <Link to={newPost}><i className="fas fa-plus-square"></i> New Post</Link>
+        </div>
         <h1 className="text-center mt-3">View All Posts</h1>
         <div className="post-container">
           {post}
@@ -33,4 +38,4 @@ class Posts extends React.Component {
   }
 }
 
-export default Posts;
+export default withRouter(Posts);

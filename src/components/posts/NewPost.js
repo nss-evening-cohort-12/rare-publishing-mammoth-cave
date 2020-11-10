@@ -16,7 +16,7 @@ class NewPost extends React.Component {
 
   changeSubjectEvent = (e) => {
     e.preventDefault();
-    this.setState({ title: e.target.value });
+    this.setState({ subject: e.target.value });
   }
 
   changeContentEvent = (e) => {
@@ -61,15 +61,15 @@ class NewPost extends React.Component {
         <form>
           <div className="form-group">
             <label htmlFor="category_id">Category ID</label>
-            <input type="text" className="form-control" id="category_id" placeholder="Category ID" onChange={this.changeCategoryEvent}/>
+            <input type="text" className="form-control" id="category_id" placeholder="category_id" onChange={this.changeCategoryEvent}/>
           </div>
           <div className="form-group">
-            <label htmlFor="subject">Post Subject</label>
-            <input type="text" className="form-control" id="subject" placeholder="Post Subject" onChange={this.changeSubjectEvent} />
+            <label htmlFor="subject">Subject</label>
+            <input type="text" className="form-control" id="subject" placeholder="subject" onChange={this.changeSubjectEvent} />
           </div>
           <div className="form-group">
-            <label htmlFor="content">Post Content</label>
-            <textarea className="form-control" id="content" rows="3"  placeholder="Post" onChange={this.changeContentEvent}/>
+            <label htmlFor="content">Content</label>
+            <textarea className="form-control" id="content" rows="3"  placeholder="content" onChange={this.changeContentEvent}/>
           </div>
         <button className="btn btn-light" onClick={this.createPost}>Create</button>
       </form>
