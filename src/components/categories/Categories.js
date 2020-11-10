@@ -23,7 +23,7 @@ class Categories extends React.Component {
     const category = categories.map ((category) => <Category key={category.id} category={category} />)
     return (
       <div>
-        <h1 className="mt-3">All Categories</h1>
+        <h1 className="text-center">All Categories</h1>
         <div className="cat-container">
           {category}
         </div>
