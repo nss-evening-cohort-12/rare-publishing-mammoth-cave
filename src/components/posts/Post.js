@@ -4,6 +4,7 @@ import moment from 'moment';
 import './Post.css';
 
 class Post extends React.Component {
+
   render() {
     const { post } = this.props;
     const postDetails = `/viewpost/${post.id}`
