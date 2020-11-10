@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 import { confirmAlert } from 'react-confirm-alert';
 import Comment from '../comments/Comment'
@@ -66,6 +66,7 @@ class SinglePost extends React.Component {
 
   render() {
     const { post, comments } = this.state;
+    const editPost = `/editpost/${post.id}`
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
     const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} />)
     return (
@@ -75,7 +76,7 @@ class SinglePost extends React.Component {
         <h4 className="mt-4">{creation_date}</h4>
         <div className="post-options">
           <i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i>
-          <i className="fas fa-edit"></i>
+          <Link to={editPost}><i class="fas fa-edit"></i></Link>
         </div>
         <div>
           New Comment Here:
