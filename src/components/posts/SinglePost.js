@@ -37,11 +37,23 @@ class SinglePost extends React.Component {
 
   deletePost = () => {
     const { postId } = this.props.match.params;
+    const { comments } = this.state
     return fetch(`http://localhost:8088/posts/${postId}`, {
       method: "DELETE"
     }).then(() => {
+      comments.forEach((comment) => {
+        fetch(`http://localhost:8088/comments/${comment.id}`, {
+          method: "DELETE"
+      }
+      )})
       this.props.history.push('/posts');
     })
+  }
+
+  deleteComment = (commentId) => {
+    return fetch(`http://localhost:8088/comments/${commentId}`, {
+      method: "DELETE"
+    }).then(() => this.getCommentsByPostId())
   }
 
   deletePostEvent = () => {
@@ -68,7 +80,7 @@ class SinglePost extends React.Component {
     const { post, comments } = this.state;
     const editPost = `/editpost/${post.id}`
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
-    const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} />)
+    const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} />)
     return (
       <div className="full-post">
         <h1>{post.subject}</h1>
