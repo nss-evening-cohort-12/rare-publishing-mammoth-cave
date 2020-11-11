@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class NewCategory extends React.Component {
   state = {
@@ -14,17 +15,17 @@ class NewCategory extends React.Component {
     e.preventDefault();
     const { name } = this.state
 
-    const new_category = {
+    const newCategory = {
       name: name
     }
-    fetch("http://127.0.0.1:8088/categories", {
+    fetch ("http://127.0.0.1:8088/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
       body: JSON.stringify(
-        new_category
+        newCategory
       )
     })
       .then(res => res.json())
@@ -34,5 +35,26 @@ class NewCategory extends React.Component {
       })
   }
 
-  render(){}
+  render() {
+    return(
+      <div className="newCatForm">
+        <h2 className="text-center">Create New Category</h2>
+        <form className="col-4">
+          <div className="form-group">
+            <label htmlFor="name">Category Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              placeholder="Category Name"
+              onChange={this.changeNameEvent}
+            />
+          </div>
+          <button className="btn-primary" onClick={this.createCategory}>Create that Category</button>
+        </form>
+      </div>
+    )
+  }
 }
+
+export default withRouter(NewCategory);
