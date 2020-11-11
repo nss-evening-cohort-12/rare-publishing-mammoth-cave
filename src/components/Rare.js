@@ -10,6 +10,7 @@ import NewPost from './posts/NewPost'
 import Posts from './posts/Posts'
 import SinglePost from './posts/SinglePost'
 import EditPost from './posts/EditPost'
+import PostByCategory from './posts/PostByCategory'
 import { UsersProvider } from "./users/UsersProvider"
 import Categories from "./categories/Categories"
 
@@ -98,6 +99,16 @@ export const Rare = () => (
             if (localStorage.getItem("rare_user_id")) {
                 return <>
                     <EditPost />
+                </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} /> 
+
+        <Route path="/category/:categoryId" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                    <PostByCategory />
                 </>
             } else {
                 return <Redirect to="/login" />
