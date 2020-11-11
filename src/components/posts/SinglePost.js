@@ -12,6 +12,8 @@ class SinglePost extends React.Component {
     comments: [],
     commentSubject: '',
     newComment: '',
+    editing: false,
+    editingComment: {},
   }
 
   componentDidMount() {
@@ -88,7 +90,7 @@ class SinglePost extends React.Component {
   };
 
   commentSubmit = () => {
-    const { newComment, commentSubject} = this.state
+    const { newComment, commentSubject, editing, editingComment} = this.state
     const tempObj = {
       user_id: localStorage.getItem('rare_user_id'),
       post_id: this.props.match.params.postId,
@@ -96,7 +98,19 @@ class SinglePost extends React.Component {
       subject: commentSubject,
       content: newComment,
     }
-    console.warn(tempObj)
+    if(editing) {
+      tempObj.id = editingComment.id
+      fetch(`http://127.0.0.1:8088/comments/${editingComment.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(tempObj)
+    }).then(() => this.getCommentsByPostId()
+    )
+    }
+    else {
     fetch("http://127.0.0.1:8088/comments", {
             method: "POST",
             headers: {
@@ -104,14 +118,23 @@ class SinglePost extends React.Component {
                 "Accept": "application/json"
             },
             body: JSON.stringify(tempObj)
-        }).then(() => this.getCommentsByPostId())
+        }).then(() => this.getCommentsByPostId()
+        )
+      }
+  }
+
+  editComment = (comment) => {
+    this.setState({ editing: true })
+    this.setState({ editingComment: comment})
+    this.setState({ commentSubject: comment.subject })
+    this.setState({ newComment: comment.content})
   }
 
   render() {
-    const { post, comments, newComment, commentSubject } = this.state;
+    const { post, comments, newComment, commentSubject, editing } = this.state;
     const editPost = `/editpost/${post.id}`
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
-    const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} />)
+    const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} editComment={this.editComment} />)
     return (
       <div className="full-post">
         <h1>{post.subject}</h1>
@@ -124,7 +147,7 @@ class SinglePost extends React.Component {
         <div>
         <form>
           <div className="form-group">
-          <h5>Add A New Comment:</h5>
+          {editing ? <h5>Edit Your Comment</h5> : <h5>Add A New Comment:</h5>}
           <h6>Subject:</h6>
           <input type="text" name="subjectInput" className="form-control col-5" id="commentSubject" value={commentSubject} onChange={this.changeCommentSubject}/>
           <h6>Comment:</h6>
