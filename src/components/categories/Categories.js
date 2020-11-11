@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import Category from './Category';
 
 class Categories extends React.Component {
@@ -20,10 +21,12 @@ class Categories extends React.Component {
 
   render() {
     const { categories } = this.state;
+    const newCategory = `/newcategory`
     const category = categories.map ((category) => <Category key={category.id} category={category} />)
     return (
-      <div>
+      <div className="text-center">
         <h1 className="text-center">All Categories</h1>
+          <Link to={newCategory}>Create Category</Link>
         <div className="cat-container">
           {category}
         </div>
@@ -32,4 +35,4 @@ class Categories extends React.Component {
   }
 }
 
-export default Categories;
+export default withRouter(Categories);
