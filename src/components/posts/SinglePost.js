@@ -10,6 +10,8 @@ class SinglePost extends React.Component {
   state = {
     post: {},
     comments: [],
+    commentSubject: '',
+    newComment: '',
   }
 
   componentDidMount() {
@@ -17,6 +19,15 @@ class SinglePost extends React.Component {
     this.getCommentsByPostId()
   }
 
+  changeComment = (e) => {
+    e.preventDefault();
+    this.setState({ newComment: e.target.value });
+  }
+
+  changeCommentSubject = (e) => {
+    e.preventDefault();
+    this.setState({ commentSubject: e.target.value });
+  }
   getCommentsByPostId = () => {
     const { postId } = this.props.match.params;
     return fetch(`http://localhost:8088/comments?post_id=${postId}`)
@@ -76,8 +87,28 @@ class SinglePost extends React.Component {
     });
   };
 
+  commentSubmit = () => {
+    const { newComment, commentSubject} = this.state
+    const tempObj = {
+      user_id: localStorage.getItem('rare_user_id'),
+      post_id: this.props.match.params.postId,
+      creation_date: Date.now(),
+      subject: commentSubject,
+      content: newComment,
+    }
+    console.warn(tempObj)
+    fetch("http://127.0.0.1:8088/comments", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(tempObj)
+        }).then(() => this.getCommentsByPostId())
+  }
+
   render() {
-    const { post, comments } = this.state;
+    const { post, comments, newComment, commentSubject } = this.state;
     const editPost = `/editpost/${post.id}`
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
     const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} />)
@@ -91,10 +122,20 @@ class SinglePost extends React.Component {
           <Link to={editPost}><i class="fas fa-edit"></i></Link>
         </div>
         <div>
-          New Comment Here:
+        <form>
+          <div className="form-group">
+          <h5>Add A New Comment:</h5>
+          <h6>Subject:</h6>
+          <input type="text" name="subjectInput" className="form-control col-5" id="commentSubject" value={commentSubject} onChange={this.changeCommentSubject}/>
+          <h6>Comment:</h6>
+          <textarea id="newComment" name="comment" row="5" className="col-6" value={newComment} onChange={this.changeComment}/><br></br>
+          <button onClick={this.commentSubmit}>Submit Comment</button>
+          </div>
+          </form>
         </div>
         {commentString}
       </div>
+      
     )
   }
 }
