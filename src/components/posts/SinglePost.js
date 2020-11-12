@@ -123,6 +123,13 @@ class SinglePost extends React.Component {
       }
   }
 
+  cancelEdit = () => {
+    this.setState({ editing: false })
+    this.setState({ editingComment: {}})
+    this.setState({ commentSubject: '' })
+    this.setState({ newComment: ''})
+  }
+
   editComment = (comment) => {
     this.setState({ editing: true })
     this.setState({ editingComment: comment})
@@ -152,7 +159,7 @@ class SinglePost extends React.Component {
           <input type="text" name="subjectInput" className="form-control col-5" id="commentSubject" value={commentSubject} onChange={this.changeCommentSubject}/>
           <h6>Comment:</h6>
           <textarea id="newComment" name="comment" row="5" className="col-6" value={newComment} onChange={this.changeComment}/><br></br>
-          <button onClick={this.commentSubmit}>Submit Comment</button>
+          <button onClick={this.commentSubmit}>{editing ? "Save": "Add"} Comment</button> <button onClick={this.cancelEdit}>Cancel</button> 
           </div>
           </form>
         </div>
