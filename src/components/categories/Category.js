@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class Category extends React.Component {
 
@@ -14,10 +14,11 @@ class Category extends React.Component {
 
   render() {
     const { category } = this.props;
+    const categoryPosts = `/category/${category.id}`
     return (
       <div className="d-flex justify-content-center cat-list">
         <div className="btn-group-sm">
-          <button className="btn-primary" id={category.id}>{category.name}</button>
+          <Link to={categoryPosts}><button className="btn-primary" id={category.id}>{category.name}</button></Link>
           <button className="btn-danger" onClick={this.deleteCategory}><i className="fas fa-skull"></i></button>
         </div>
       </div>  
