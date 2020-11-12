@@ -142,7 +142,7 @@ class SinglePost extends React.Component {
         <h4 className="mt-4">{creation_date}</h4>
         <div className="post-options">
           <i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i>
-          <Link to={editPost}><i class="fas fa-edit"></i></Link>
+          <Link to={editPost}><i className="fas fa-edit"></i></Link>
         </div>
         <div>
         <form>

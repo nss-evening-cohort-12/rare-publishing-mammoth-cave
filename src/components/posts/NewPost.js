@@ -49,7 +49,6 @@ class NewPost extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        console.error(res);
         this.props.history.push('/posts')
       })
   }
