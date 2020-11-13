@@ -29,6 +29,13 @@ class Comment extends React.Component {
     });
   };
 
+  editEvent = (e) =>
+  {
+    e.preventDefault();
+    const {comment, editComment } = this.props
+    editComment(comment)
+  }
+
   render() {
     const { comment } = this.props;
     const creation_date = moment(comment.creation_date).format('MMM Do, yyyy');
@@ -38,7 +45,7 @@ class Comment extends React.Component {
         <h6>{`${comment.user.first_name} ${comment.user.last_name} - ${creation_date}`}
         {comment.user_id == localStorage.getItem("rare_user_id") ?
           <>
-          <i class="fas fa-edit"></i>
+          <i className="fas fa-edit" onClick={this.editEvent}></i>
           <i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i>
           </>
         : <div></div>}
