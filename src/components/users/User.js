@@ -9,10 +9,11 @@ class User extends React.Component {
 
     const userDetails = `/user/${user.id}`;
 
-  return (<>
+  return (
+    <>
     <Link to={userDetails}>Name: {user.first_name} {user.last_name}<br/>
     Email: {user.email}</Link>
-  </>
+    </>
   )
   }
 }

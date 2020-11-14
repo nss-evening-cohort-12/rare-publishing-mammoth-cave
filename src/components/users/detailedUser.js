@@ -24,7 +24,7 @@ class DetailedUser extends React.Component {
   render() {
     const { first_name, last_name, email, bio } = this.state.user;
     return (
-      <div>
+      <div className="post-container">
       <h4>{first_name} {last_name}</h4>
         <h5>{email}</h5>
         <p>{bio}</p>
