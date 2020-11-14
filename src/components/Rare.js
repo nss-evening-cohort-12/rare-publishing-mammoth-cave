@@ -14,6 +14,7 @@ import PostByCategory from './posts/PostByCategory'
 import { UsersProvider } from "./users/UsersProvider"
 import Categories from "./categories/Categories"
 import NewCategory from './categories/NewCategory'
+import EditCategory from './categories/EditCategory'
 
 export const Rare = () => (
     <>
@@ -135,6 +136,16 @@ export const Rare = () => (
                 return <Redirect to="/login" />
             }
         }} />
+
+        <Route path="/editcategory/:categoryId" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                    <EditCategory />
+                    </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} /> 
 
 
         

@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import './EditCategory.css';
+
 class EditCategory extends React.Component {
   state = {
     name: '',
@@ -11,8 +13,8 @@ class EditCategory extends React.Component {
   }
 
   getCategoryById = () => {
-    const { category } = this.props;
-    return fetch(`http://localhost:8088/categories/${category.id}`)
+    const { categoryId } = this.props.match.params;
+    return fetch(`http://localhost:8088/categories/${categoryId}`)
     .then (res => res.json())
     .then (res => {
       this.setState({ name: res.name })
@@ -27,13 +29,13 @@ class EditCategory extends React.Component {
   editCategory = (e) => {
     e.preventDefault();
     const { name } = this.state
-    const { category } = this.props;
+    const { categoryId } = this.props.match.params;
 
     const editedCategory = {
       name: name,
     }
 
-    fetch(`http://localhost:8088/categories/${category.id}`, {
+    fetch(`http://localhost:8088/categories/${categoryId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +46,7 @@ class EditCategory extends React.Component {
       )
     })
       .then(res => {
-        this.props.history.push(`/viewcategory/${category.id}`)
+        this.props.history.push(`/categories`)
       })
   }
 
@@ -53,19 +55,22 @@ class EditCategory extends React.Component {
     return (
       <div className="editCatForm">
         <h2 className="text-center">Edit Category</h2>
-        <form className="col-4">
-          <div className="form-group">
-            <label htmlFor="name">Category Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              placeholder="Category Name"
-              onChange={this.changeNameEvent}
-            />
-          </div>
-          <button className="btn-primary" onClick={this.editCategory}>Edit that Category</button>
-        </form>
+        <div className="editFormContainer">
+          <form className="col-4">
+            <div className="form-group">
+              <label htmlFor="name">Category Re-Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                placeholder="Category Name"
+                value={name}
+                onChange={this.changeNameEvent}
+              />
+            </div>
+            <button className="btn-warning" onClick={this.editCategory}>Edit that Category</button>
+          </form>
+        </div>
       </div>
     )
   }
