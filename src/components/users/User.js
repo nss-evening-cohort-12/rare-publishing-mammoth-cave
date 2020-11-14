@@ -1,5 +1,6 @@
 import React from "react";
 import {Link, withRouter} from 'react-router-dom';
+import './User.css'
 
 class User extends React.Component {
   
@@ -10,10 +11,10 @@ class User extends React.Component {
     const userDetails = `/user/${user.id}`;
 
   return (
-    <>
-    <Link to={userDetails}>Name: {user.first_name} {user.last_name}<br/>
-    Email: {user.email}</Link>
-    </>
+    <div>
+    <Link to={userDetails}><h5>Name: {user.first_name} {user.last_name}<br/>
+    Email: {user.email}</h5></Link>
+    </div>
   )
   }
 }
