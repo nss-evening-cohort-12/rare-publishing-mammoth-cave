@@ -89,28 +89,37 @@ class SinglePost extends React.Component {
     });
   };
 
-  commentSubmit = () => {
-    const { newComment, commentSubject, editing, editingComment} = this.state
-    const tempObj = {
-      user_id: localStorage.getItem('rare_user_id'),
-      post_id: this.props.match.params.postId,
-      creation_date: Date.now(),
-      subject: commentSubject,
-      content: newComment,
-    }
+  commentSubmit = (e) => {
+    e.preventDefault()
+    const { editing } = this.state
+   
     if(editing) {
-      tempObj.id = editingComment.id
+      const { newComment, commentSubject, editingComment} = this.state
+      const tempObj = {
+        subject: commentSubject,
+        content: newComment,
+        id: editingComment.id,
+      }
+      console.warn(tempObj)
       fetch(`http://127.0.0.1:8088/comments/${editingComment.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(tempObj)
-    }).then(() => this.getCommentsByPostId()
-    )
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(
+        tempObj
+      )}).then(() => this.getCommentsByPostId())
     }
     else {
+      const { newComment, commentSubject} = this.state
+      const tempObj = {
+        user_id: localStorage.getItem('rare_user_id'),
+        post_id: this.props.match.params.postId,
+        creation_date: Date.now(),
+        subject: commentSubject,
+        content: newComment,
+      }
     fetch("http://127.0.0.1:8088/comments", {
             method: "POST",
             headers: {
@@ -118,8 +127,7 @@ class SinglePost extends React.Component {
                 "Accept": "application/json"
             },
             body: JSON.stringify(tempObj)
-        }).then(() => this.getCommentsByPostId()
-        )
+        }).then(() => this.getCommentsByPostId())
       }
   }
 

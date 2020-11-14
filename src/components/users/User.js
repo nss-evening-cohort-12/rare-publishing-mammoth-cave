@@ -1,10 +1,21 @@
-import React, {useContext} from "react";
-import { UsersContext } from "./UsersProvider"
+import React from "react";
+import {Link, withRouter} from 'react-router-dom';
 
-export const User = ({ user }) => {
-  return (<>
-    Name: {user.first_name} {user.last_name}<br/>
-    Email: {user.email}
-  </>
+class User extends React.Component {
+  
+  render(){
+
+    const { user } = this.props
+
+    const userDetails = `/user/${user.id}`;
+
+  return (
+    <>
+    <Link to={userDetails}>Name: {user.first_name} {user.last_name}<br/>
+    Email: {user.email}</Link>
+    </>
   )
+  }
 }
+
+export default withRouter(User);

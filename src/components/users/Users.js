@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { Route } from "react-router-dom";
 import { UsersContext } from './UsersProvider';
-import { User } from './User'
+import User from './User'
 
 export const Users = () => {
     const {users, getAllUsers, setUsers} = useContext(UsersContext);

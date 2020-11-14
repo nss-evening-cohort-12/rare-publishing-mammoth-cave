@@ -10,6 +10,7 @@ export const Register = (props) => {
     const verifyPassword = useRef()
     const passwordDialog = useRef()
     const history = useHistory()
+    const bio = useRef()
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -20,9 +21,10 @@ export const Register = (props) => {
                 "first_name": firstName.current.value,
                 "last_name": lastName.current.value,
                 "email": email.current.value,
-                "password": password.current.value
+                "password": password.current.value,
+                "bio": bio.current.value
             }
-
+    
             return fetch("http://127.0.0.1:8088/register", {
                 method: "POST",
                 headers: {
@@ -72,6 +74,10 @@ export const Register = (props) => {
                 <fieldset>
                     <label htmlFor="verifyPassword"> Verify Password </label>
                     <input ref={verifyPassword} type="password" name="verifyPassword" className="form-control" placeholder="Verify password" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="bio"> Bio </label>
+                    <textarea ref={bio} name="bio" className="form-control" placeholder="Let others know a little bit about you..." />
                 </fieldset>
                 <fieldset style={{
                     textAlign: "center"
