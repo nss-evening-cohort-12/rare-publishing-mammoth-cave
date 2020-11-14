@@ -136,6 +136,17 @@ export const Rare = () => (
             }
         }} />
 
+        
+        <Route path="/comments/:commentId" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                    <deatailedUser />
+                </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
+
 
         
     </>
