@@ -14,3 +14,17 @@
     max-height: 6rem;
     max-width: 6rem;
 }
+
+.log-button {
+    cursor: pointer;
+    background: none!important;
+    border: none;
+	cursor: pointer;
+	color: 	#007bff;
+}
+
+.log-button:hover {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #0351a5;
+}
