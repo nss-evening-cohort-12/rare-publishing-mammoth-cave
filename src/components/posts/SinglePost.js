@@ -143,16 +143,19 @@ class SinglePost extends React.Component {
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
     const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} editComment={this.editComment} />)
     return (
-      <div className="full-post">
-        <h1>{post.subject}</h1>
-        <h5>{post.content}</h5>
-        <h4 className="mt-4">{creation_date}</h4>
+      <div className="single-post">
+        <div className="post-content">
+          <h3 className="subject">{post.subject}</h3>
+          <p>{post.content}</p>
+          <h5>{post.first_Name} {post.last_Name}</h5>
+          <h6 className="text-muted mt-4">{creation_date}</h6>
+        </div>
         <div className="post-options">
           <i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i>
           <Link to={editPost}><i className="fas fa-edit"></i></Link>
         </div>
         <div>
-        <form>
+        <form className="comment-form">
           <div className="form-group">
           {editing ? <h5>Edit Your Comment</h5> : <h5>Add A New Comment:</h5>}
           <h6>Subject:</h6>

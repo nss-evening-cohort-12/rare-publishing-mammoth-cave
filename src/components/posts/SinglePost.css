@@ -1,4 +1,40 @@
-.full-post {
+.single-post {
   width: 60%;
   margin: 20px auto 20px auto;
+}
+
+.subject {
+  text-decoration: underline;
+}
+
+.post-content {
+  box-shadow: 3px 3px rgb(161, 161, 161);
+  margin-bottom: 10px;
+  background-color: aliceblue;
+}
+
+.post-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-options {
+  margin-bottom: 20px;
+}
+
+.fa-edit {
+  color: rgb(189, 179, 39);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.fa-trash-alt {
+  color: rgb(228, 36, 36);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.comment-form {
+  margin-bottom: 20px;
 }
