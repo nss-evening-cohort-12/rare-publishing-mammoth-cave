@@ -1,0 +1,11 @@
+.user-list {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-content: flex-start;
+  background-color: rgb(195, 224, 250);
+}
+
+.user-list:nth-child(odd) {
+  background-color: aliceblue;
+}
