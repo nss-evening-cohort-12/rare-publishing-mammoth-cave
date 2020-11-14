@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Category from './Category';
 
+import './Categories.css';
+
 class Categories extends React.Component {
   state = {
     categories: [],

@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import './NewCategory.css';
+
 class NewCategory extends React.Component {
   state = {
     name: '',
@@ -38,19 +40,21 @@ class NewCategory extends React.Component {
     return(
       <div className="newCatForm">
         <h2 className="text-center">Create New Category</h2>
-        <form className="col-4">
-          <div className="form-group">
-            <label htmlFor="name">Category Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              placeholder="Category Name"
-              onChange={this.changeNameEvent}
-            />
-          </div>
-          <button className="btn-primary" onClick={this.createCategory}>Create that Category</button>
-        </form>
+        <div className="newFormContainer">
+          <form className="col-4 realForm">
+            <div className="form-group">
+              <label htmlFor="name">Category Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                placeholder="Name that category for 201, Alex"
+                onChange={this.changeNameEvent}
+              />
+            </div>
+            <button className="btn-success" onClick={this.createCategory}>Create that Category</button>
+          </form>
+        </div>
       </div>
     )
   }
