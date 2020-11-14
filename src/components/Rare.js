@@ -14,6 +14,7 @@ import PostByCategory from './posts/PostByCategory'
 import { UsersProvider } from "./users/UsersProvider"
 import Categories from "./categories/Categories"
 import NewCategory from './categories/NewCategory'
+import DetailedUser from './users/detailedUser'
 
 export const Rare = () => (
     <>
@@ -137,10 +138,10 @@ export const Rare = () => (
         }} />
 
         
-        <Route path="/comments/:commentId" render={() => {
+        <Route path="/user/:userId" render={() => {
             if (localStorage.getItem("rare_user_id")) {
                 return <>
-                    <deatailedUser />
+                    <DetailedUser />
                 </>
             } else {
                 return <Redirect to="/login" />
