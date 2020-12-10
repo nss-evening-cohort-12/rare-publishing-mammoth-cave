@@ -18,13 +18,13 @@ class NewCategory extends React.Component {
     const { name } = this.state
 
     const newCategory = {
-      name: name
+      label: name
     }
-    fetch ("http://127.0.0.1:8088/categories", {
+    fetch ("http://127.0.0.1:8000/categories", {
       method: "POST",
       headers: {
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
-        "Accept": "application/json"
       },
       body: JSON.stringify(
         newCategory

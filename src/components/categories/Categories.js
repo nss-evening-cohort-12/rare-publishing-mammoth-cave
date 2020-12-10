@@ -14,17 +14,21 @@ class Categories extends React.Component {
   }
 
   getAllCategories = () => {
-    return fetch("http://localhost:8088/categories/")
+    return fetch("http://localhost:8000/categories", {
+      headers:{
+          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      }
+    })
     .then(res => res.json())
     .then(res => {
-      this.setState({ categories: res })
+      this.setState({ categories: res.results })
     })
   }
 
   render() {
     const { categories } = this.state;
     const newCategory = `/newcategory`
-    const category = categories.map ((category) => <Category key={category.id} category={category} />)
+    const category = categories.map ((category) => <Category key={category.id} getAllCategories={this.getAllCategories} category={category} />)
     return (
       <div className="text-center">
         <h1 className="text-center">All Categories</h1>
