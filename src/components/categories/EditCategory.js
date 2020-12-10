@@ -14,7 +14,11 @@ class EditCategory extends React.Component {
 
   getCategoryById = () => {
     const { categoryId } = this.props.match.params;
-    return fetch(`http://localhost:8088/categories/${categoryId}`)
+    return fetch(`http://localhost:8000/categories/${categoryId}`, {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      }
+    })
     .then (res => res.json())
     .then (res => {
       this.setState({ name: res.name })
@@ -32,12 +36,13 @@ class EditCategory extends React.Component {
     const { categoryId } = this.props.match.params;
 
     const editedCategory = {
-      name: name,
+      label: name,
     }
 
-    fetch(`http://localhost:8088/categories/${categoryId}`, {
+    fetch(`http://localhost:8000/categories/${categoryId}`, {
       method: "PUT",
       headers: {
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
         "Accept": "application/json"
       },

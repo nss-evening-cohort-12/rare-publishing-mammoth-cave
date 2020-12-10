@@ -6,12 +6,14 @@ import './Category.css';
 class Category extends React.Component {
 
   deleteCategory = () => {
-    const { category } = this.props;
-    return fetch(`http://localhost:8088/categories/${category.id}`, {
-      method: "DELETE"
-    }).then(() => {
-      this.props.history.push('/categories');
+    const { category, getAllCategories } = this.props;
+    return fetch(`http://localhost:8000/categories/${category.id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      }
     })
+    .then(() => getAllCategories())
   }
 
   render() {
@@ -21,7 +23,7 @@ class Category extends React.Component {
     return (
       <div className="d-flex justify-content-center cat-list">
         <div className="btn-group-sm cat-bg">
-          <Link to={categoryPosts}><button className="btn-primary" id={category.id}>{category.name}</button></Link>
+          <Link to={categoryPosts}><button className="btn-primary" id={category.id}> {category.label} </button></Link>
           <Link to={editCategory}><button className="btn-warning"><i className="fas fa-pen"></i></button></Link>
           <button className="btn-danger" onClick={this.deleteCategory}><i className="fas fa-skull"></i></button>
         </div>
