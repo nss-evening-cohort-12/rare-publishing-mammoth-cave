@@ -12,10 +12,13 @@ class MyPosts extends React.Component {
 
   getAllPosts = () => {
     const user_id = localStorage.getItem("rare_user_id")
-    return fetch(`http://localhost:8088/posts?user_id=${user_id}`)
+    return fetch(`http://localhost:8000/posts?user_id=${user_id}`, {   
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
+      })
     .then(res => res.json())
     .then(res => {
-      this.setState({ posts: res })
+      this.setState({ posts: res.results })
     })
 }
 

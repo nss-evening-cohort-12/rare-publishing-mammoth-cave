@@ -41,7 +41,11 @@ class SinglePost extends React.Component {
 
   getPostById = () => {
     const { postId } = this.props.match.params;
-    return fetch(`http://localhost:8088/posts/${postId}`)
+    return fetch(`http://localhost:8000/posts/${postId}`, {   
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
+      }
+        )
     .then(res => res.json())
     .then(res => {
       this.setState({ post: res })
@@ -51,8 +55,10 @@ class SinglePost extends React.Component {
   deletePost = () => {
     const { postId } = this.props.match.params;
     const { comments } = this.state
-    return fetch(`http://localhost:8088/posts/${postId}`, {
-      method: "DELETE"
+    return fetch(`http://localhost:8000/posts/${postId}`, {
+      method: "DELETE",
+        headers: {
+          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
     }).then(() => {
       comments.forEach((comment) => {
         fetch(`http://localhost:8088/comments/${comment.id}`, {
@@ -150,12 +156,13 @@ class SinglePost extends React.Component {
     const editPost = `/editpost/${post.id}`
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
     const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} editComment={this.editComment} />)
+    console.warn(post)
     return (
       <div className="single-post">
         <div className="post-content">
-          <h3 className="subject">{post.subject}</h3>
+          <h3 className="subject">{post.title}</h3>
           <p>{post.content}</p>
-          <h5>{post.first_Name} {post.last_Name}</h5>
+          <h5>{post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</h5>
           <h6 className="text-muted mt-4">{creation_date}</h6>
         </div>
         <div className="post-options">
