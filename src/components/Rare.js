@@ -17,7 +17,7 @@ import NewCategory from './categories/NewCategory'
 import DetailedUser from './users/detailedUser'
 import EditCategory from './categories/EditCategory'
 import { NewTag } from './tags/NewTag'
-import { Tags } from './tags/Tags'
+import Tags from './tags/Tags'
 
 export const Rare = () => (
     <>
