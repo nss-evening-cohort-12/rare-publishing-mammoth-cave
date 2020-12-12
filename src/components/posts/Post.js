@@ -10,9 +10,9 @@ class Post extends React.Component {
     const creation_date = moment(post.creation_date).format('MMM Do, YYY');
     return(
       <div className="post-list">
-        <h5>{post.user.first_name} {post.user.last_name}</h5>
-        <Link to={postDetails}><h5>{post.subject}</h5></Link>
-        <h5>{post.category.name}</h5>
+        <h5>{post.user_id.user_id.first_name} {post.user_id.user_id.last_name}</h5>
+        <Link to={postDetails}><h5>{post.title}</h5></Link>
+        <h5>{post.category_id.label}</h5>
       </div>
     )
   }
