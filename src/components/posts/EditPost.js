@@ -14,7 +14,11 @@ class EditPost extends React.Component {
 
   getPostById = () => {
     const { postId } = this.props.match.params;
-    return fetch(`http://localhost:8088/posts/${postId}`)
+    return fetch(`http://localhost:8000/posts/${postId}`, {   
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
+      }
+        )
     .then(res => res.json())
     .then(res => {
       this.setState({ category_id: res.category_id, subject: res.subject, content: res.content })
@@ -52,9 +56,10 @@ class EditPost extends React.Component {
       creation_date: creation_date
     }
 
-    fetch(`http://127.0.0.1:8088/posts/${postId}`, {
+    fetch(`http://127.0.0.1:8000/posts/${postId}`, {
       method: "PUT",
       headers: {
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
