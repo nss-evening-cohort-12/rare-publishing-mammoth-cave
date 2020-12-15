@@ -16,6 +16,9 @@ import Categories from "./categories/Categories"
 import NewCategory from './categories/NewCategory'
 import DetailedUser from './users/detailedUser'
 import EditCategory from './categories/EditCategory'
+import NewTag from './tags/NewTag'
+import Tags from './tags/Tags'
+import EditTag from './tags/EditTag'
 
 export const Rare = () => (
     <>
@@ -159,6 +162,35 @@ export const Rare = () => (
             }
         }} /> 
 
+        <Route path="/newtag" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                    <NewTag />
+                    </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
+
+        <Route path="/tags" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                    <Tags />
+                    </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
+
+        <Route path="/edittag/:tagId" render={() => {
+            if (localStorage.getItem("rare_user_id")) {
+                return <>
+                    <EditTag />
+                    </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
 
         
     </>
