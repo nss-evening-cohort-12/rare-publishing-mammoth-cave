@@ -43,7 +43,7 @@ class Comment extends React.Component {
       <div className="comment">
         <h5>{comment.subject}</h5>
         <h6>{`${comment.user.first_name} ${comment.user.last_name} - ${creation_date}`}
-        {comment.user_id == localStorage.getItem("rare_user_id") ?
+        {comment.user_id == localStorage.getItem("token") ?
           <>
           <i className="fas fa-edit" onClick={this.editEvent}></i>
           <i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i>

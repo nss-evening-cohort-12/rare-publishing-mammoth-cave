@@ -43,7 +43,7 @@ class SinglePost extends React.Component {
     const { postId } = this.props.match.params;
     return fetch(`http://localhost:8000/posts/${postId}`, {   
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
+        "Authorization": `Token ${localStorage.getItem("token")}`}
       }
         )
     .then(res => res.json())
@@ -58,7 +58,7 @@ class SinglePost extends React.Component {
     return fetch(`http://localhost:8000/posts/${postId}`, {
       method: "DELETE",
         headers: {
-          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
+          "Authorization": `Token ${localStorage.getItem("token")}`}
     }).then(() => {
       comments.forEach((comment) => {
         fetch(`http://localhost:8088/comments/${comment.id}`, {
@@ -120,7 +120,7 @@ class SinglePost extends React.Component {
     else {
       const { newComment, commentSubject} = this.state
       const tempObj = {
-        user_id: localStorage.getItem('rare_user_id'),
+        user_id: localStorage.getItem('token'),
         post_id: this.props.match.params.postId,
         creation_date: Date.now(),
         subject: commentSubject,

@@ -9,7 +9,7 @@ class Tag extends React.Component {
     return fetch(`http://localhost:8000/tags/${tag.id}`, {
       method: "DELETE",
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Token ${localStorage.getItem("token")}`
       }
     })
     .then(() => getAllTags())

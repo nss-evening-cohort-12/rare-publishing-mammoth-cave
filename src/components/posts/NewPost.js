@@ -5,7 +5,7 @@ import moment from 'moment';
 
 class NewPost extends React.Component {
   state = {
-    category_id: '',
+    category_id: 1,
     subject: '',
     content: '',
     categories: []
@@ -17,7 +17,7 @@ class NewPost extends React.Component {
   getAllCategories = () => {
     return fetch("http://localhost:8000/categories", {
       headers:{
-          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+          "Authorization": `Token ${localStorage.getItem("token")}`
       }
     })
     .then(res => res.json())
@@ -44,11 +44,11 @@ class NewPost extends React.Component {
   createPost = (e) => {
     e.preventDefault();
     const { category_id, subject, content } = this.state
-    const user_id = localStorage.getItem("rare_user_id")
+    const user_id = localStorage.getItem("user_id")
     const creation_date = Date.now()
 
     const new_post = {
-      user_id: 1,
+      user_id,
       category_id: category_id,
       title: subject,
       content: content,
@@ -60,8 +60,8 @@ class NewPost extends React.Component {
     fetch("http://127.0.0.1:8000/posts", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
+          "Authorization": `Token ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
       },
       body: JSON.stringify(
         new_post

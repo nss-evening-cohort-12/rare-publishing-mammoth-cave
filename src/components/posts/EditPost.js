@@ -9,6 +9,9 @@ class EditPost extends React.Component {
     content: '',
     categories: [],
     user_id: 0,
+    image_url: '',
+    tags: [],
+    approved: true
   }
 
   componentDidMount() {
@@ -19,7 +22,7 @@ class EditPost extends React.Component {
   getAllCategories = () => {
     return fetch("http://localhost:8000/categories", {
       headers:{
-          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+          "Authorization": `Token ${localStorage.getItem("token")}`
       }
     })
     .then(res => res.json())
@@ -32,12 +35,12 @@ class EditPost extends React.Component {
     const { postId } = this.props.match.params;
     return fetch(`http://localhost:8000/posts/${postId}`, {   
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
+        "Authorization": `Token ${localStorage.getItem("token")}`}
       }
         )
     .then(res => res.json())
     .then(res => {
-      this.setState({ user_id: res.user_id, category_id: res.category_id.id, subject: res.title, content: res.content })
+      this.setState({ user_id: res.user_id, category_id: res.category_id.id, subject: res.title, content: res.content, image_url: res.image_url, tags: res.tags, approved: res.approved })
     })
   }
 
@@ -58,27 +61,27 @@ class EditPost extends React.Component {
 
   editPost = (e) => {
     e.preventDefault();
-    const {user_id, category_id, content, subject } = this.state
+    const {user_id, category_id, content, subject, image_url, approved, tags } = this.state
     const { postId } = this.props.match.params;
     const editDate = Date.now()
-    // const user_id = localStorage.getItem("rare_user_id")
+    // const user_id = localStorage.getItem("token")
     const creation_date = new Date(editDate)
 
     const edited_post = {
-      user_id: user_id,
-      category_id: {category_id, },
+      user_id: user_id.id,
+      category_id: category_id,
       title: subject,
       content: content,
       publication_date: moment(creation_date).format('YYYY-MM-DD'),
-      image_url: "https://tinyurl.com/yyxuqm45",
-      approved: true,
-      tags: [1]
+      image_url,
+      approved,
+      tags,
     }
 
     fetch(`http://127.0.0.1:8000/posts/${postId}`, {
       method: "PUT",
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
+        "Authorization": `Token ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
