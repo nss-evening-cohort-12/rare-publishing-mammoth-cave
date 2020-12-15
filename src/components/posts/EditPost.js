@@ -1,15 +1,31 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment'
 
 class EditPost extends React.Component {
   state = {
-    category_id: '',
+    category_id: 0,
     subject: '',
     content: '',
+    categories: [],
+    user_id: 0,
   }
 
   componentDidMount() {
-    this.getPostById()
+    this.getPostById();
+    this.getAllCategories()
+  }
+
+  getAllCategories = () => {
+    return fetch("http://localhost:8000/categories", {
+      headers:{
+          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      }
+    })
+    .then(res => res.json())
+    .then(res => {
+      this.setState({ categories: res.results })
+    })
   }
 
   getPostById = () => {
@@ -21,13 +37,13 @@ class EditPost extends React.Component {
         )
     .then(res => res.json())
     .then(res => {
-      this.setState({ category_id: res.category_id, subject: res.subject, content: res.content })
+      this.setState({ user_id: res.user_id, category_id: res.category_id.id, subject: res.title, content: res.content })
     })
   }
 
   changeCategoryEvent = (e) => {
     e.preventDefault();
-    this.setState({ category_id: e.target.value });
+    this.setState({ category_id: Number(e.target.value) });
   }
 
   changeSubjectEvent = (e) => {
@@ -42,18 +58,21 @@ class EditPost extends React.Component {
 
   editPost = (e) => {
     e.preventDefault();
-    const { category_id, content, subject } = this.state
+    const {user_id, category_id, content, subject } = this.state
     const { postId } = this.props.match.params;
     const editDate = Date.now()
-    const user_id = localStorage.getItem("rare_user_id")
+    // const user_id = localStorage.getItem("rare_user_id")
     const creation_date = new Date(editDate)
 
     const edited_post = {
       user_id: user_id,
-      category_id: category_id,
-      subject: subject,
+      category_id: {category_id, },
+      title: subject,
       content: content,
-      creation_date: creation_date
+      publication_date: moment(creation_date).format('YYYY-MM-DD'),
+      image_url: "https://tinyurl.com/yyxuqm45",
+      approved: true,
+      tags: [1]
     }
 
     fetch(`http://127.0.0.1:8000/posts/${postId}`, {
@@ -73,14 +92,16 @@ class EditPost extends React.Component {
   }
 
   render() {
-    const { category_id, subject, content } = this.state;
+    const { category_id, subject, content, categories } = this.state;
     return (
       <div className="form-wrapper">
       <h1 className="text-center mt-3">Edit Post</h1>
       <form>
         <div className="form-group">
-          <label htmlFor="category_id">Category ID</label>
-          <input type="text" className="form-control" id="category_id" value={category_id} onChange={this.changeCategoryEvent}/>
+          <label htmlFor="category_id">Category</label>
+            <select value={category_id} onChange={this.changeCategoryEvent}>              
+              {categories.map(category => <option value={category.id}>{category.label}</option>)}
+            </select>
         </div>
         <div className="form-group">
           <label htmlFor="title">Subject</label>

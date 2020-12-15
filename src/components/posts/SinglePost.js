@@ -161,6 +161,7 @@ class SinglePost extends React.Component {
       <div className="single-post">
         <div className="post-content">
           <h3 className="subject">{post.title}</h3>
+          <h3 className="category">{post.category_id && post.category_id.label}</h3>
           <p>{post.content}</p>
           <h5>{post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</h5>
           <h6 className="text-muted mt-4">{creation_date}</h6>
