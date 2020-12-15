@@ -32,7 +32,7 @@ class SinglePost extends React.Component {
   }
   getCommentsByPostId = () => {
     const { postId } = this.props.match.params;
-    return fetch(`http://localhost:8088/comments?post_id=${postId}`)
+    return fetch(`http://localhost:8000/comments?post_id=${postId}`)
     .then(res => res.json())
     .then(res => {
       this.setState({ comments: res })
@@ -61,7 +61,7 @@ class SinglePost extends React.Component {
           "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
     }).then(() => {
       comments.forEach((comment) => {
-        fetch(`http://localhost:8088/comments/${comment.id}`, {
+        fetch(`http://localhost:8000/comments/${comment.id}`, {
           method: "DELETE"
       }
       )})
@@ -70,7 +70,7 @@ class SinglePost extends React.Component {
   }
 
   deleteComment = (commentId) => {
-    return fetch(`http://localhost:8088/comments/${commentId}`, {
+    return fetch(`http://localhost:8000/comments/${commentId}`, {
       method: "DELETE"
     }).then(() => this.getCommentsByPostId())
   }
@@ -107,7 +107,7 @@ class SinglePost extends React.Component {
         id: editingComment.id,
       }
       console.warn(tempObj)
-      fetch(`http://127.0.0.1:8088/comments/${editingComment.id}`, {
+      fetch(`http://127.0.0.1:8000/comments/${editingComment.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +126,7 @@ class SinglePost extends React.Component {
         subject: commentSubject,
         content: newComment,
       }
-    fetch("http://127.0.0.1:8088/comments", {
+    fetch("http://127.0.0.1:8000/comments", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -156,7 +156,7 @@ class SinglePost extends React.Component {
     const editPost = `/editpost/${post.id}`
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
     const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} editComment={this.editComment} />)
-    console.warn(post)
+    // console.warn(post)
     return (
       <div className="single-post">
         <div className="post-content">
