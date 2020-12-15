@@ -18,7 +18,6 @@ class EditTag extends React.Component {
         "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
       }
     })
-    .then(res = res.json())
     .then(res => {
       this.setState({ name: res.name })
     })
@@ -58,13 +57,26 @@ class EditTag extends React.Component {
     const { name } = this.state
     return (
       <div className="editTagForm">
-        <h2 className="editFormContainer">Edit Tag</h2>
-        <div className="col-4">
-          <form className="">
-
+        <h2 className="text-center">Edit Tag</h2>
+        <div className="editFormContainer">
+          <form className="col-4">
+            <div className="form-group">
+              <label htmlFor="name">Tag Name Change</label>
+              <input
+              type="text"
+              className="form-control"
+              id="name"
+              placeholder="Tag Name"
+              value={name}
+              onChange={this.changeNameEvent}
+              />
+            </div>
+            <button className="btn-warning" onClick={this.editTag}>Edit Tag</button>
           </form>
         </div>
       </div>
     )
   }
 }
+
+export default withRouter(EditTag);
