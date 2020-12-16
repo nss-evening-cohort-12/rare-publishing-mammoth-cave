@@ -16,7 +16,7 @@ class EditCategory extends React.Component {
     const { categoryId } = this.props.match.params;
     return fetch(`http://localhost:8000/categories/${categoryId}`, {
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Token ${localStorage.getItem("token")}`
       }
     })
     .then (res => res.json())
@@ -42,7 +42,7 @@ class EditCategory extends React.Component {
     fetch(`http://localhost:8000/categories/${categoryId}`, {
       method: "PUT",
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
+        "Authorization": `Token ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
         "Accept": "application/json"
       },

@@ -16,7 +16,7 @@ class Categories extends React.Component {
   getAllCategories = () => {
     return fetch("http://localhost:8000/categories", {
       headers:{
-          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+          "Authorization": `Token ${localStorage.getItem("token")}`
       }
     })
     .then(res => res.json())

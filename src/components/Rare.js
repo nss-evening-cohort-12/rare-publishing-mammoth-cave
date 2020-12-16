@@ -23,7 +23,7 @@ import EditTag from './tags/EditTag'
 export const Rare = () => (
     <>
         <Route render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <NavBar />
                     <ApplicationViews />
@@ -34,7 +34,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/login" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <Redirect to="/" />
             } else {
                 return <Login />
@@ -42,7 +42,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/register" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <Redirect to="/" />
             } else {
                 return <Register />
@@ -50,7 +50,7 @@ export const Rare = () => (
         }} />
         
         <Route path="/users" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                         <UsersProvider>
                             <Users />
@@ -62,7 +62,7 @@ export const Rare = () => (
             }} />
 
         <Route path="/posts" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <Posts />
                 </>
@@ -72,7 +72,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/newpost" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <NewPost />
                 </>
@@ -82,7 +82,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/myposts" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <MyPosts />
                 </>
@@ -92,7 +92,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/viewpost/:postId" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <SinglePost />
                 </>
@@ -102,7 +102,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/editpost/:postId" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <EditPost />
                 </>
@@ -112,7 +112,7 @@ export const Rare = () => (
         }} /> 
 
         <Route path="/category/:categoryId" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <PostByCategory />
                 </>
@@ -122,7 +122,7 @@ export const Rare = () => (
         }} /> 
 
         <Route path="/categories" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <Categories />
                     </>
@@ -132,7 +132,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/newcategory" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <NewCategory />
                     </>
@@ -143,7 +143,7 @@ export const Rare = () => (
 
         
         <Route path="/user/:userId" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <DetailedUser />
                 </>
@@ -153,7 +153,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/editcategory/:categoryId" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <EditCategory />
                     </>
@@ -163,7 +163,7 @@ export const Rare = () => (
         }} /> 
 
         <Route path="/newtag" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <NewTag />
                     </>
@@ -173,7 +173,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/tags" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <Tags />
                     </>
@@ -183,7 +183,7 @@ export const Rare = () => (
         }} />
 
         <Route path="/edittag/:tagId" render={() => {
-            if (localStorage.getItem("rare_user_id")) {
+            if (localStorage.getItem("token")) {
                 return <>
                     <EditTag />
                     </>

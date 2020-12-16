@@ -15,7 +15,7 @@ class Posts extends React.Component {
   getAllPosts = () => {
     return fetch("http://localhost:8000/posts", {   
     headers: {
-      "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
+      "Authorization": `Token ${localStorage.getItem("token")}`}
     }
       )
     .then(res => res.json())
