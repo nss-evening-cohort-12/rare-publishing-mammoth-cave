@@ -13,10 +13,13 @@ class PostByCategory extends React.Component {
 
   getPostsByCat = () => {
     const { categoryId } = this.props.match.params;
-    return fetch(`http://localhost:8088/posts?category_id=${categoryId}`)
+    return fetch(`http://localhost:8000/posts?category_id=${categoryId}`, {   
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("token")}`}
+      })
     .then(res => res.json())
     .then(res => {
-      this.setState({ posts: res })
+      this.setState({ posts: res.results })
     })
   }
 
