@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 import { confirmAlert } from 'react-confirm-alert';
-import Comment from '../comments/Comment'
+// import Comment from '../comments/Comment'
 import './SinglePost.css';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
@@ -155,7 +155,7 @@ class SinglePost extends React.Component {
     const { post, comments, newComment, commentSubject, editing } = this.state;
     const editPost = `/editpost/${post.id}`
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
-    const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} editComment={this.editComment} />)
+    // const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} editComment={this.editComment} />)
     // console.warn(post)
     return (
       <div className="single-post">
@@ -181,7 +181,7 @@ class SinglePost extends React.Component {
           </div>
           </form>
         </div>
-        {commentString}
+        {/* {commentString} */}
       </div>
       
     )
