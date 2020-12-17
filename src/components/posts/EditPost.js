@@ -11,12 +11,14 @@ class EditPost extends React.Component {
     user_id: 0,
     image_url: '',
     tags: [],
-    approved: true
+    approved: true,
+    all_tags: []
   }
 
   componentDidMount() {
     this.getPostById();
     this.getAllCategories()
+    this.getAllTags();
   }
 
   getAllCategories = () => {
@@ -28,6 +30,18 @@ class EditPost extends React.Component {
     .then(res => res.json())
     .then(res => {
       this.setState({ categories: res.results })
+    })
+  }
+
+  getAllTags = () => {
+    return fetch("http://localhost:8000/tags", {
+      headers:{
+          "Authorization": `Token ${localStorage.getItem("token")}`
+      }
+    })
+    .then(res => res.json())
+    .then(res => {
+      this.setState({ all_tags: res.results })
     })
   }
 
@@ -61,10 +75,9 @@ class EditPost extends React.Component {
 
   editPost = (e) => {
     e.preventDefault();
-    const {user_id, category_id, content, subject, image_url, approved, tags } = this.state
+    const {user_id, category_id, content, subject, image_url, approved, tags, all_tags } = this.state
     const { postId } = this.props.match.params;
     const editDate = Date.now()
-    // const user_id = localStorage.getItem("token")
     const creation_date = new Date(editDate)
 
     const edited_post = {
@@ -95,17 +108,11 @@ class EditPost extends React.Component {
   }
 
   render() {
-    const { category_id, subject, content, categories } = this.state;
+    const { category_id, subject, content, categories, tags, all_tags } = this.state;
     return (
       <div className="form-wrapper">
       <h1 className="text-center mt-3">Edit Post</h1>
       <form>
-        <div className="form-group">
-          <label htmlFor="category_id">Category</label>
-            <select value={category_id} onChange={this.changeCategoryEvent}>              
-              {categories.map(category => <option value={category.id}>{category.label}</option>)}
-            </select>
-        </div>
         <div className="form-group">
           <label htmlFor="title">Subject</label>
           <input type="text" className="form-control" id="subject" value={subject} onChange={this.changeSubjectEvent} />
@@ -113,6 +120,18 @@ class EditPost extends React.Component {
         <div className="form-group">
           <label htmlFor="content">Content</label>
           <textarea className="form-control" id="content" rows="3" value={content} onChange={this.changeContentEvent}/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="category_id">Category</label>
+            <select value={category_id} onChange={this.changeCategoryEvent}>              
+              {categories.map(category => <option value={category.id}>{category.label}</option>)}
+            </select>
+        </div>
+        <div className="form-check">
+          <input className="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            {all_tags.map(tag => <option value={tag.id}>{tag.label}</option>)}
+          </label>
         </div>
       <button className="btn btn-light" onClick={this.editPost}>Submit</button>
     </form>
