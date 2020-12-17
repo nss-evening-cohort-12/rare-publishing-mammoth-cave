@@ -15,7 +15,7 @@ class EditTag extends React.Component {
     const { tagId } = this.props.match.params;
     return fetch(`http://localhost:8000/tags/${tagId}`, {
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Token ${localStorage.getItem("token")}`
       }
     })
     .then(res => {
@@ -40,7 +40,7 @@ class EditTag extends React.Component {
     fetch(`http://localhost:8000/tags/${tagId}`, {
       method: "PUT",
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
+        "Authorization": `Token ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
         "Accept": "application/json"
       },

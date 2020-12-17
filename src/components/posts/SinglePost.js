@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 import { confirmAlert } from 'react-confirm-alert';
-// import Comment from '../comments/Comment'
+import Comment from '../comments/Comment'
 import './SinglePost.css';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
@@ -18,7 +18,7 @@ class SinglePost extends React.Component {
 
   componentDidMount() {
     this.getPostById()
-    this.getCommentsByPostId()
+    // this.getCommentsByPostId()
   }
 
   changeComment = (e) => {
@@ -30,14 +30,14 @@ class SinglePost extends React.Component {
     e.preventDefault();
     this.setState({ commentSubject: e.target.value });
   }
-  getCommentsByPostId = () => {
-    const { postId } = this.props.match.params;
-    return fetch(`http://localhost:8000/comments?post_id=${postId}`)
-    .then(res => res.json())
-    .then(res => {
-      this.setState({ comments: res })
-    })
-  }
+  // getCommentsByPostId = () => {
+  //   const { postId } = this.props.match.params;
+  //   return fetch(`http://localhost:8000/comments?post_id=${postId}`)
+  //   .then(res => res.json())
+  //   .then(res => {
+  //     this.setState({ comments: res })
+  //   })
+  // }
 
   getPostById = () => {
     const { postId } = this.props.match.params;
@@ -156,7 +156,7 @@ class SinglePost extends React.Component {
     const editPost = `/editpost/${post.id}`
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
     // const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} editComment={this.editComment} />)
-    // console.warn(post)
+    console.warn(post)
     return (
       <div className="single-post">
         <div className="post-content">
