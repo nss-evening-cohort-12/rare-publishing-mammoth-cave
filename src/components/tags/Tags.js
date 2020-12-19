@@ -30,7 +30,7 @@ class Tags extends React.Component {
         const tag = tags.map ((tag) => <Tag key={tag.id} getAllTags={this.getAllTags} tag={tag}/>)
         return(
             <div className="text-center">
-                <h1 className="text-center mt-3">All Tags</h1>
+                <h1 className="text-center mt-3">Tags</h1>
                 <Link to={newTag}><i className="fas fa-plus-square"></i> New Tag</Link>
                 <div className="tag-container">
                     {tag}

@@ -107,14 +107,8 @@ class NewPost extends React.Component {
     const {categories, category_id, all_tags, tags } = this.state
     return (
       <div className="form-wrapper">
-        <h1 className="text-center mt-3">Create New Post</h1>
+        <h1 className="text-center mt-3">New Post</h1>
         <form>
-          <div className="form-group">
-            <label htmlFor="category_id">Category</label>
-            <select value={category_id} onChange={this.changeCategoryEvent}>              
-              {categories.map(category => <option value={category.id}>{category.label}</option>)}
-            </select>
-          </div>
           <div className="form-group">
             <label htmlFor="subject">Subject</label>
             <input type="text" className="form-control" id="subject" placeholder="subject" onChange={this.changeSubjectEvent} />
@@ -123,11 +117,17 @@ class NewPost extends React.Component {
             <label htmlFor="content">Content</label>
             <textarea className="form-control" id="content" rows="3"  placeholder="content" onChange={this.changeContentEvent}/>
           </div>
-          <div className="form-check"> 
-          <label class="form-check-label" for="defaultCheck1">Tags</label>
+          <div className="form-group">
+            <label htmlFor="category_id">Category</label>
+            <select value={category_id} onChange={this.changeCategoryEvent}>              
+              {categories.map(category => <option value={category.id}>{category.label}</option>)}
+            </select>
+          </div>
+          <div className="form-check-inline"> 
+          <label class="form-check-label" for="defaultCheck1"></label>
             {all_tags.map(tag => <Checkboxes key={tag.id} tag={tag} handleChecked={this.handleChecked} />)}
           </div>
-        <button className="btn btn-light" onClick={this.createPost}>Create</button>
+        <button className="btn btn-1 mt-3" onClick={this.createPost}>Publish</button>
       </form>
     </div>
     )
