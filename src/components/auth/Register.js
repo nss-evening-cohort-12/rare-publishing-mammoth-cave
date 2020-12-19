@@ -55,7 +55,7 @@ export const Register = (props) => {
                 <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
             </dialog>
 
-            <form className="form--login" onSubmit={handleRegister}>
+            <form className="form--login mt-4" onSubmit={handleRegister}>
                 <h1 className="text-center">Rare</h1>
                 <fieldset>
                     <div className="mt-5">
@@ -92,7 +92,7 @@ export const Register = (props) => {
                     <button className="btn btn-1" type="submit">Register</button>
                 </fieldset>
             </form>
-            <section className="link--register">
+            <section className="link--register mt-4 mb-4">
                 Already registered? <Link to="/login">Login</Link>
             </section>
         </main>
