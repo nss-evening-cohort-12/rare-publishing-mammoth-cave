@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment'
+import Checkboxes from '../tags/checkboxes';
 
 class EditPost extends React.Component {
   state = {
@@ -12,13 +13,36 @@ class EditPost extends React.Component {
     image_url: '',
     tags: [],
     approved: true,
-    all_tags: []
+    all_tags: [],
+    checkboxes: []
   }
 
+  compo
   componentDidMount() {
     this.getPostById();
-    this.getAllCategories()
-    this.getAllTags();
+    this.getAllCategories();
+  }
+
+
+  setChecks = () => {
+    const {all_tags, tags} = this.state
+    console.warn(all_tags)
+    const checkboxArr = []
+    all_tags.forEach(tag => {
+      if (tags.includes(tag.id)) {
+        checkboxArr.push({
+          checked: true,
+          tag: tag
+        })
+      }
+      else {
+        checkboxArr.push ({
+          checked: false,
+          tag: tag
+        })
+      }
+    })
+    this.setState({ checkboxes: checkboxArr})
   }
 
   getAllCategories = () => {
@@ -42,6 +66,7 @@ class EditPost extends React.Component {
     .then(res => res.json())
     .then(res => {
       this.setState({ all_tags: res.results })
+      this.setChecks()
     })
   }
 
@@ -55,6 +80,7 @@ class EditPost extends React.Component {
     .then(res => res.json())
     .then(res => {
       this.setState({ user_id: res.user_id, category_id: res.category_id.id, subject: res.title, content: res.content, image_url: res.image_url, tags: res.tags, approved: res.approved })
+      this.getAllTags()
     })
   }
 
@@ -107,8 +133,20 @@ class EditPost extends React.Component {
       })
   }
 
+    handleChecked = (e) => {
+      let checkedTags = this.state.tags;
+      if (!checkedTags.includes(Number(e.target.id))) {
+        checkedTags.push(Number(e.target.id))
+        this.setState({tags: checkedTags})
+      }
+      else {
+        checkedTags.splice(checkedTags.indexOf(e.target.id), 1)
+        this.setState({tags: checkedTags})
+      }
+
+    }
   render() {
-    const { category_id, subject, content, categories, tags, all_tags } = this.state;
+    const { category_id, subject, content, categories, tags, all_tags, checkboxes } = this.state;
     return (
       <div className="form-wrapper">
       <h1 className="text-center mt-3">Edit Post</h1>
@@ -127,12 +165,11 @@ class EditPost extends React.Component {
               {categories.map(category => <option value={category.id}>{category.label}</option>)}
             </select>
         </div>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
-          <label class="form-check-label" for="defaultCheck1">
-            {all_tags.map(tag => <option value={tag.id}>{tag.label}</option>)}
-          </label>
+        <div className="form-check"> 
+          <label class="form-check-label" for="defaultCheck1">Tags</label>
+            {checkboxes.map(checkbox => <Checkboxes key={checkbox.tag.id} Checked={checkbox.checked} tag={checkbox.tag} handleChecked={this.handleChecked} />)}
         </div>
+        
       <button className="btn btn-light" onClick={this.editPost}>Submit</button>
     </form>
   </div>

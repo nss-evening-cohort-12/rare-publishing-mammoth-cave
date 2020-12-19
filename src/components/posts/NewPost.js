@@ -2,16 +2,32 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import './NewPost.css';
 import moment from 'moment';
+import Checkboxes from '../tags/checkboxes';
 
 class NewPost extends React.Component {
   state = {
     category_id: 1,
     subject: '',
     content: '',
-    categories: []
+    categories: [],
+    all_tags: [],
+    tags: []
   }
   componentDidMount() {
     this.getAllCategories();
+    this.getAllTags();
+  }
+
+  getAllTags = () => {
+    return fetch("http://localhost:8000/tags", {
+      headers:{
+          "Authorization": `Token ${localStorage.getItem("token")}`
+      }
+    })
+    .then(res => res.json())
+    .then(res => {
+      this.setState({ all_tags: res.results })
+    })
   }
 
   getAllCategories = () => {
@@ -43,7 +59,7 @@ class NewPost extends React.Component {
 
   createPost = (e) => {
     e.preventDefault();
-    const { category_id, subject, content } = this.state
+    const { category_id, subject, content, tags } = this.state
     const user_id = localStorage.getItem("user_id")
     const creation_date = Date.now()
 
@@ -55,7 +71,7 @@ class NewPost extends React.Component {
       publication_date: moment(creation_date).format('YYYY-MM-DD'),
       approved: true,
       image_url: "https://tinyurl.com/yyxuqm45",
-      tags: [1]
+      tags,
     }
     fetch("http://127.0.0.1:8000/posts", {
       method: "POST",
@@ -73,8 +89,22 @@ class NewPost extends React.Component {
       })
   }
 
+
+  handleChecked = (e) => {
+    let checkedTags = this.state.tags;
+    if (!checkedTags.includes(Number(e.target.id))) {
+      checkedTags.push(Number(e.target.id))
+      this.setState({tags: checkedTags})
+    }
+    else {
+      checkedTags.splice(checkedTags.indexOf(e.target.id), 1)
+      this.setState({tags: checkedTags})
+    }
+
+  }
+
   render() {
-    const {categories, category_id } = this.state
+    const {categories, category_id, all_tags, tags } = this.state
     return (
       <div className="form-wrapper">
         <h1 className="text-center mt-3">Create New Post</h1>
@@ -92,6 +122,10 @@ class NewPost extends React.Component {
           <div className="form-group">
             <label htmlFor="content">Content</label>
             <textarea className="form-control" id="content" rows="3"  placeholder="content" onChange={this.changeContentEvent}/>
+          </div>
+          <div className="form-check"> 
+          <label class="form-check-label" for="defaultCheck1">Tags</label>
+            {all_tags.map(tag => <Checkboxes key={tag.id} tag={tag} handleChecked={this.handleChecked} />)}
           </div>
         <button className="btn btn-light" onClick={this.createPost}>Create</button>
       </form>
