@@ -65,3 +65,12 @@ fieldset {
     min-width: 15rem;
     min-height: 5rem;
 }
+
+.login__logo {
+    max-height: 10rem;
+    max-width: 10rem;
+}
+
+.log-field {
+    padding-left: 5rem;
+}
