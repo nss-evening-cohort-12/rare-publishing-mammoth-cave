@@ -5,11 +5,12 @@
   text-align: center;
   justify-content: space-between;
   border: 1px solid black;
+  margin-bottom: 5rem;
 }
 
 .post-buttons {
   display: flex !important;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   color: black;
 }

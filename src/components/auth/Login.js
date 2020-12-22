@@ -1,6 +1,7 @@
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import "./Auth.css"
+import Logo from "../nav/raresteak.png"
 
 
 export const Login = () => {
@@ -28,7 +29,7 @@ export const Login = () => {
                 if ("valid" in res && res.valid) {
                     localStorage.setItem("user_id", res.user_id )
                     localStorage.setItem("token", res.token)
-                    history.push("/")
+                    history.push("/myposts")
                 }
                 else {
                     invalidDialog.current.showModal()
@@ -43,26 +44,30 @@ export const Login = () => {
                 <button className="button--close" onClick={e => invalidDialog.current.close()}>Close</button>
             </dialog>
             <section>
-                <form className="form--login" onSubmit={handleLogin}>
-                    <h1>RARE</h1>
-                    <h2>Please sign in</h2>
-                    <fieldset>
+                <form className="form--login mt-4" onSubmit={handleLogin}>
+                    <h1 className="text-center">RARE</h1>
+                    <div className="mt-5">
+                        <div className="d-flex flex-column justify-content-center align-items-center">
+                            <img className="login__logo" src={Logo} />
+                        </div>
+                    </div>
+                    <fieldset className="log-field">
                         <label htmlFor="inputEmail"> Email address </label>
                         <input ref={email} type="email" id="email" className="form-control" defaultValue="me@me.com" placeholder="Email address" required autoFocus />
                     </fieldset>
-                    <fieldset>
+                    <fieldset className="log-field">
                         <label htmlFor="inputPassword"> Password </label>
                         <input ref={password} type="password" id="password" className="form-control" defaultValue="password" placeholder="Password" required />
                     </fieldset>
                     <fieldset style={{
                         textAlign:"center"
                     }}>
-                        <button className="btn btn-1 btn-sep icon-send" type="submit">Sign In</button>
+                        <button className="btn btn-1" type="submit">Login</button>
                     </fieldset>
                 </form>
             </section>
-            <section className="link--register">
-                <Link to="/register">Not a member yet?</Link>
+            <section className="link--register mt-4">
+                <Link to="/register">Don't have an account yet? Click here to sign up!</Link>
             </section>
         </main>
     )

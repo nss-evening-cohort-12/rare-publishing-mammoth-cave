@@ -165,12 +165,11 @@ class EditPost extends React.Component {
               {categories.map(category => <option value={category.id}>{category.label}</option>)}
             </select>
         </div>
-        <div className="form-check"> 
-          <label class="form-check-label" for="defaultCheck1">Tags</label>
+        <div className="form-check-inline"> 
+          <label class="form-check-label" for="defaultCheck1"></label>
             {checkboxes.map(checkbox => <Checkboxes key={checkbox.tag.id} Checked={checkbox.checked} tag={checkbox.tag} handleChecked={this.handleChecked} />)}
         </div>
-        
-      <button className="btn btn-light" onClick={this.editPost}>Submit</button>
+      <br/><button className="btn btn-1 mt-3" onClick={this.editPost}>Save</button>
     </form>
   </div>
     )
