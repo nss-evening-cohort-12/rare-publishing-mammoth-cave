@@ -1,6 +1,7 @@
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import "./Auth.css"
+import Logo from "../nav/raresteak.png"
 
 export const Register = (props) => {
     const firstName = useRef()
@@ -54,9 +55,14 @@ export const Register = (props) => {
                 <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
             </dialog>
 
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Register an account</h1>
+            <form className="form--login mt-4" onSubmit={handleRegister}>
+                <h1 className="text-center">Rare</h1>
                 <fieldset>
+                    <div className="mt-5">
+                        <div className="d-flex flex-column justify-content-center align-items-center">
+                            <img className="login__logo" src={Logo} />
+                        </div>
+                    </div>
                     <label htmlFor="firstName"> First Name </label>
                     <input ref={firstName} type="text" name="firstName" className="form-control" placeholder="First name" required autoFocus />
                 </fieldset>
@@ -83,10 +89,10 @@ export const Register = (props) => {
                 <fieldset style={{
                     textAlign: "center"
                 }}>
-                    <button className="btn btn-1 btn-sep icon-send" type="submit">Register</button>
+                    <button className="btn btn-1" type="submit">Register</button>
                 </fieldset>
             </form>
-            <section className="link--register">
+            <section className="link--register mt-4 mb-4">
                 Already registered? <Link to="/login">Login</Link>
             </section>
         </main>
