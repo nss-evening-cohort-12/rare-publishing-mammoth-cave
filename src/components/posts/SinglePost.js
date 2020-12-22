@@ -9,35 +9,24 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 class SinglePost extends React.Component {
   state = {
     post: {},
-    comments: [],
-    commentSubject: '',
-    newComment: '',
-    editing: false,
-    editingComment: {},
+    tags: [],
   }
 
   componentDidMount() {
     this.getPostById()
-    this.getCommentsByPostId()
   }
 
-  changeComment = (e) => {
-    e.preventDefault();
-    this.setState({ newComment: e.target.value });
-  }
-
-  changeCommentSubject = (e) => {
-    e.preventDefault();
-    this.setState({ commentSubject: e.target.value });
-  }
-  getCommentsByPostId = () => {
-    const { postId } = this.props.match.params;
-    return fetch(`http://localhost:8088/comments?post_id=${postId}`)
+  getAllTags = () => {
+    return fetch("http://localhost:8000/tags", {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
+    })
     .then(res => res.json())
     .then(res => {
-      this.setState({ comments: res })
+        this.setState({ tags: res.results })
     })
-  }
+}
 
   getPostById = () => {
     const { postId } = this.props.match.params;
@@ -49,31 +38,19 @@ class SinglePost extends React.Component {
     .then(res => res.json())
     .then(res => {
       this.setState({ post: res })
+      this.getAllTags()
     })
   }
 
   deletePost = () => {
     const { postId } = this.props.match.params;
-    const { comments } = this.state
     return fetch(`http://localhost:8000/posts/${postId}`, {
       method: "DELETE",
         headers: {
           "Authorization": `Token ${localStorage.getItem("token")}`}
-    }).then(() => {
-      comments.forEach((comment) => {
-        fetch(`http://localhost:8088/comments/${comment.id}`, {
-          method: "DELETE"
-      }
-      )})
-      this.props.history.push('/posts');
-    })
+    }).then(this.props.history.push('/posts'));
   }
 
-  deleteComment = (commentId) => {
-    return fetch(`http://localhost:8088/comments/${commentId}`, {
-      method: "DELETE"
-    }).then(() => this.getCommentsByPostId())
-  }
 
   deletePostEvent = () => {
     confirmAlert({
@@ -95,96 +72,42 @@ class SinglePost extends React.Component {
     });
   };
 
-  commentSubmit = (e) => {
-    e.preventDefault()
-    const { editing } = this.state
-   
-    if(editing) {
-      const { newComment, commentSubject, editingComment} = this.state
-      const tempObj = {
-        subject: commentSubject,
-        content: newComment,
-        id: editingComment.id,
-      }
-      console.warn(tempObj)
-      fetch(`http://127.0.0.1:8088/comments/${editingComment.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(
-        tempObj
-      )}).then(() => this.getCommentsByPostId())
-    }
-    else {
-      const { newComment, commentSubject} = this.state
-      const tempObj = {
-        user_id: localStorage.getItem('token'),
-        post_id: this.props.match.params.postId,
-        creation_date: Date.now(),
-        subject: commentSubject,
-        content: newComment,
-      }
-    fetch("http://127.0.0.1:8088/comments", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(tempObj)
-        }).then(() => this.getCommentsByPostId())
-      }
-  }
-
-  cancelEdit = () => {
-    this.setState({ editing: false })
-    this.setState({ editingComment: {}})
-    this.setState({ commentSubject: '' })
-    this.setState({ newComment: ''})
-  }
-
-  editComment = (comment) => {
-    this.setState({ editing: true })
-    this.setState({ editingComment: comment})
-    this.setState({ commentSubject: comment.subject })
-    this.setState({ newComment: comment.content})
-  }
-
   render() {
-    const { post, comments, newComment, commentSubject, editing } = this.state;
+    const { post, tags} = this.state;
     const editPost = `/editpost/${post.id}`
-    const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
-    const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} editComment={this.editComment} />)
     console.warn(post)
     return (
-      <div className="single-post">
-        <div className="post-content">
-          <h3 className="subject">{post.title}</h3>
+      <>
+      <div className="container d-flex justify-content-around">
+      <div className="post d-flex flex-column col-10">
+        <div className="post-header">
+          <h2 className="subject">{post.title}</h2>
+        </div>
+        <div className="post-options d-flex justify-content-between col-9">
+          <span><i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i>
+          <Link to={editPost}><i className="fas fa-edit"></i></Link>        
+          </span>
           <h3 className="category">{post.category_id && post.category_id.label}</h3>
-          <p>{post.content}</p>
-          <h5>{post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</h5>
-          <h6 className="text-muted mt-4">{creation_date}</h6>
         </div>
-        <div className="post-options">
-          <i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i>
-          <Link to={editPost}><i className="fas fa-edit"></i></Link>
+        <div className="text-center">
+        <img src={post.image_url} />
         </div>
-        <div>
-        <form className="comment-form">
-          <div className="form-group">
-          {editing ? <h5>Edit Your Comment</h5> : <h5>Add A New Comment:</h5>}
-          <h6>Subject:</h6>
-          <input type="text" name="subjectInput" className="form-control col-5" id="commentSubject" value={commentSubject} onChange={this.changeCommentSubject}/>
-          <h6>Comment:</h6>
-          <textarea id="newComment" name="comment" row="5" className="col-6" value={newComment} onChange={this.changeComment}/><br></br>
-          <button onClick={this.commentSubmit}>{editing ? "Save": "Add"} Comment</button> <button onClick={this.cancelEdit}>Cancel</button> 
-          </div>
-          </form>
+        <div className="d-flex justify-content-between col-9">
+          <span>By {post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</span>
+          <button>View Comments</button>
+          <div>Reactions To Come</div>
         </div>
-        {commentString}
-      </div>
-      
+        </div>
+        <div className="postTags d-flex col-3">
+          <ul style={{"list-style-type": "none"}}>
+          {tags.map(tag => post.tags.includes(tag.id) ? <li className="tag">{tag.label}</li> : '')}
+          </ul>
+        </div>
+        </div>
+        <div className="postContent text-center col-10">
+        <p>{post.content}</p>
+    </div>
+    </>
     )
   }
 }
