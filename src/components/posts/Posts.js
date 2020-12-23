@@ -31,7 +31,7 @@ class Posts extends React.Component {
     return (
       <div>
         <div className="container post-buttons">
-          <Link to={newPost}><i className="fas fa-plus-square"></i> New Post</Link>
+          <Link to={newPost}>Add Post <i className="fas fa-plus-square"></i></Link>
         </div>
         <h1 className="text-center mt-3">View All Posts</h1>
         <div className="post-container">

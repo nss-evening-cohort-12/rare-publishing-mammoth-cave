@@ -31,7 +31,7 @@ class Categories extends React.Component {
     const category = categories.map ((category) => <Category key={category.id} getAllCategories={this.getAllCategories} category={category} />)
     return (
       <div className="text-center">
-        <h1 className="text-center">All Categories</h1>
+        <h1 className="text-center">Categories</h1>
           <Link to={newCategory}>Create Category</Link>
         <div className="cat-container">
           {category}
