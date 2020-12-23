@@ -9,14 +9,13 @@ class Comments extends React.Component {
   }
 
   componentDidMount() {
-    this.getCommentsByPostId ();
+    this.getComments();
   }
 
-  getCommentsByPostId = () => {
-    const { postId } = this.props.match.params;
-    return fetch(`http://localhost:8000/comments?post_id=${postId}`, {   
+  getComments = () => {
+    return fetch(`http://localhost:8000/comments`, {   
       headers: {
-        "Authorization": `Token ${localStorage.getItem("user_id")}`}
+        "Authorization": `Token ${localStorage.getItem("token")}`}
       }
         )
     .then(res => res.json())
@@ -25,10 +24,15 @@ class Comments extends React.Component {
     })
   }
 
+  deleteComment = (commentId) => {
+    return fetch(`http://localhost:8000/comments/${commentId}`, {
+      method: "DELETE"
+    }).then(() => this.getComments())
+  }
+
   render() {
     const { comments } = this.state;
-    console.error(comments)
-    const comment = comments.map((comment) => <Comment key={comment.id} comment={comment} />)
+    const comment = comments.map((comment) => <Comment key={comment.id} comment={comment} getComments={this.getComments} deleteComment={this.deleteComment} />)
     return (
       <div className="text-center">
         <h1 className="text-center">Comments</h1>

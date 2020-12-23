@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 import { confirmAlert } from 'react-confirm-alert';
-import Comment from '../comments/Comment'
 import './SinglePost.css';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
@@ -69,12 +68,6 @@ class SinglePost extends React.Component {
     })
   }
 
-  deleteComment = (commentId) => {
-    return fetch(`http://localhost:8000/comments/${commentId}`, {
-      method: "DELETE"
-    }).then(() => this.getCommentsByPostId())
-  }
-
   deletePostEvent = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -95,48 +88,6 @@ class SinglePost extends React.Component {
     });
   };
 
-  commentSubmit = (e) => {
-    e.preventDefault()
-    const { editing } = this.state
-   
-    if(editing) {
-      const { newComment, commentSubject, editingComment} = this.state
-      const tempObj = {
-        subject: commentSubject,
-        content: newComment,
-        id: editingComment.id,
-      }
-      console.warn(tempObj)
-      fetch(`http://127.0.0.1:8000/comments/${editingComment.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(
-        tempObj
-      )}).then(() => this.getCommentsByPostId())
-    }
-    else {
-      const { newComment, commentSubject} = this.state
-      const tempObj = {
-        user_id: localStorage.getItem('rare_user_id'),
-        post_id: this.props.match.params.postId,
-        creation_date: Date.now(),
-        subject: commentSubject,
-        content: newComment,
-      }
-    fetch("http://127.0.0.1:8000/comments", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(tempObj)
-        }).then(() => this.getCommentsByPostId())
-      }
-  }
-
   cancelEdit = () => {
     this.setState({ editing: false })
     this.setState({ editingComment: {}})
@@ -152,11 +103,11 @@ class SinglePost extends React.Component {
   }
 
   render() {
-    const { post, comments, newComment, commentSubject, editing } = this.state;
+    const { post, editing } = this.state;
     const editPost = `/editpost/${post.id}`
+    const comments = `/comments/${post.id}`
     const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
-    // const commentString = comments.map((comment) => <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} editComment={this.editComment} />)
-    console.warn(post)
+
     return (
       <div className="single-post">
         <div className="post-content">
@@ -170,18 +121,8 @@ class SinglePost extends React.Component {
           <Link to={editPost}><i className="fas fa-edit"></i></Link>
         </div>
         <div>
-        <form className="comment-form">
-          <div className="form-group">
-          {editing ? <h5>Edit Your Comment</h5> : <h5>Add A New Comment:</h5>}
-          <h6>Subject:</h6>
-          <input type="text" name="subjectInput" className="form-control col-5" id="commentSubject" value={commentSubject} onChange={this.changeCommentSubject}/>
-          <h6>Comment:</h6>
-          <textarea id="newComment" name="comment" row="5" className="col-6" value={newComment} onChange={this.changeComment}/><br></br>
-          <button onClick={this.commentSubmit}>{editing ? "Save": "Add"} Comment</button> <button onClick={this.cancelEdit}>Cancel</button> 
-          </div>
-          </form>
+        <Link to= {comments}><button className="btn-primary"> Comments </button></Link>
         </div>
-        {/* {commentString} */}
       </div>
       
     )
