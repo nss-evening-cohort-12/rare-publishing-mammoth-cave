@@ -12,6 +12,7 @@ export const Register = (props) => {
     const passwordDialog = useRef()
     const history = useHistory()
     const bio = useRef()
+    const imgUrl = useRef()
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -23,7 +24,8 @@ export const Register = (props) => {
                 "last_name": lastName.current.value,
                 "email": email.current.value,
                 "password": password.current.value,
-                "bio": bio.current.value
+                "bio": bio.current.value,
+                "imgUrl": imgUrl.current.value,
             }
     
             return fetch("http://127.0.0.1:8000/register", {
@@ -39,6 +41,7 @@ export const Register = (props) => {
                     if ("valid" in res && res.valid) {
                         localStorage.setItem("user_id", res.user_id )
                         localStorage.setItem("token", res.token)
+                        localStorage.setItem("isAdmin", res.isAdmin)
                         history.push("/")
                     }
                 })
@@ -81,6 +84,10 @@ export const Register = (props) => {
                 <fieldset>
                     <label htmlFor="verifyPassword"> Verify Password </label>
                     <input ref={verifyPassword} type="password" name="verifyPassword" className="form-control" placeholder="Verify password" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="imgUrl">Profile Image </label>
+                    <input type="text" ref={imgUrl} name="imgUrl" className="form-control" placeholder="A website link to a picture of you!" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="bio"> Bio </label>
