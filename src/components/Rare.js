@@ -19,6 +19,8 @@ import EditCategory from './categories/EditCategory'
 import NewTag from './tags/NewTag'
 import Tags from './tags/Tags'
 import EditTag from './tags/EditTag'
+import CommentsPost from "./comments/CommentsPost"
+import Comments from "./comments/Comments"
 
 export const Rare = () => (
     <>
@@ -186,6 +188,26 @@ export const Rare = () => (
             if (localStorage.getItem("token")) {
                 return <>
                     <EditTag />
+                    </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
+
+        <Route path="/comments/:postId" render={() => {
+            if (localStorage.getItem("token")) {
+                return <>
+                    <CommentsPost />
+                    </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
+
+        <Route path="/commentslist" render={() => {
+            if (localStorage.getItem("token")) {
+                return <>
+                    <Comments />
                     </>
             } else {
                 return <Redirect to="/login" />

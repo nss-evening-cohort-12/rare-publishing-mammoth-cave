@@ -10,7 +10,7 @@ class Categories extends React.Component {
   }
 
   componentDidMount() {
-    this.getAllCategories ();
+    this.getAllCategories();
   }
 
   getAllCategories = () => {
