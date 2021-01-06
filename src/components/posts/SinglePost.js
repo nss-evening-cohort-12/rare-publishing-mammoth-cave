@@ -8,35 +8,13 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 class SinglePost extends React.Component {
   state = {
     post: {},
-    comments: [],
-    commentSubject: '',
-    newComment: '',
-    editing: false,
-    editingComment: {},
+    tags: [],
   }
 
   componentDidMount() {
     this.getPostById()
-    // this.getCommentsByPostId()
   }
 
-  changeComment = (e) => {
-    e.preventDefault();
-    this.setState({ newComment: e.target.value });
-  }
-
-  changeCommentSubject = (e) => {
-    e.preventDefault();
-    this.setState({ commentSubject: e.target.value });
-  }
-  // getCommentsByPostId = () => {
-  //   const { postId } = this.props.match.params;
-  //   return fetch(`http://localhost:8000/comments?post_id=${postId}`)
-  //   .then(res => res.json())
-  //   .then(res => {
-  //     this.setState({ comments: res })
-  //   })
-  // }
 
   getPostById = () => {
     const { postId } = this.props.match.params;
@@ -53,18 +31,12 @@ class SinglePost extends React.Component {
 
   deletePost = () => {
     const { postId } = this.props.match.params;
-    const { comments } = this.state
     return fetch(`http://localhost:8000/posts/${postId}`, {
       method: "DELETE",
         headers: {
           "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
     }).then(() => {
-      comments.forEach((comment) => {
-        fetch(`http://localhost:8000/comments/${comment.id}`, {
-          method: "DELETE"
-      }
-      )})
-      this.props.history.push('/posts');
+      this.props.history.push('/posts')
     })
   }
 
@@ -88,43 +60,43 @@ class SinglePost extends React.Component {
     });
   };
 
-  cancelEdit = () => {
-    this.setState({ editing: false })
-    this.setState({ editingComment: {}})
-    this.setState({ commentSubject: '' })
-    this.setState({ newComment: ''})
-  }
-
-  editComment = (comment) => {
-    this.setState({ editing: true })
-    this.setState({ editingComment: comment})
-    this.setState({ commentSubject: comment.subject })
-    this.setState({ newComment: comment.content})
-  }
-
   render() {
-    const { post, editing } = this.state;
+    const { post} = this.state;
     const editPost = `/editpost/${post.id}`
     const comments = `/comments/${post.id}`
-    const creation_date = moment(post.creation_date).format('MMM Do, YYYY');
-
+    console.warn(post)
     return (
-      <div className="single-post">
-        <div className="post-content">
-          <h3 className="subject">{post.title}</h3>
-          <p>{post.content}</p>
-          <h5>{post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</h5>
-          <h6 className="text-muted mt-4">{creation_date}</h6>
+      <>
+      <div className="container d-flex">
+      <div className="post d-flex flex-column col-10">
+        <div className="post-header">
+          <h2 className="subject text-center">{post.title}</h2>
         </div>
-        <div className="post-options">
-          <i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i>
-          <Link to={editPost}><i className="fas fa-edit"></i></Link>
+        <div className="post-options d-flex justify-content-between">
+          <span><i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i>
+          <Link to={editPost}><i className="fas fa-edit"></i></Link>        
+          </span>
+          <h3 className="category">{post.category_id && post.category_id.label}</h3>
         </div>
-        <div>
-        <Link to= {comments}><button className="btn-primary"> Comments </button></Link>
+        <div className="text-center">
+        <img src={post.image_url} />
         </div>
-      </div>
-      
+        <div className="d-flex justify-content-between">
+          <span>By {post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</span>
+          <Link to= {comments}><button className="btn-primary">View Comments</button></Link>
+          <div className="reactions">Reactions To Come</div>
+        </div>
+        </div>
+        <div className="postTags d-flex">
+          <ul style={{"list-style-type": "none"}}>
+          {post.tags && post.tags.map(tag => <li className="tag">{tag.label}</li>)}
+          </ul>
+        </div>
+        </div>
+        <div className="postContent text-center col-10">
+        <p className="col-10">{post.content}</p>
+    </div>
+    </>
     )
   }
 }
