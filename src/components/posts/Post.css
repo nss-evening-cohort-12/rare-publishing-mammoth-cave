@@ -1,13 +1,25 @@
-.post-list {
+.post {
   display: flex;
-  padding: 10px;
   justify-content: space-between;
   align-content: flex-start;
-  background-color: rgb(195, 224, 250);
 }
 
 h2 {
   margin: 5px;
+}
+
+.post-list {
+  padding: 10px;
+  background-color: rgb(195, 224, 250);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: flex-start;
+  padding: 10px;
+  background-color: aliceblue;
+  border-bottom:  solid black 1px;
 }
 
 .post-list:nth-child(odd) {
