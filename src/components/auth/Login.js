@@ -30,7 +30,7 @@ export const Login = () => {
                     localStorage.setItem("user_id", res.user_id )
                     localStorage.setItem("token", res.token)
                     localStorage.setItem("isAdmin", res.isAdmin)
-                    history.push("/myposts")
+                    history.push("/")
                 }
                 else {
                     invalidDialog.current.showModal()

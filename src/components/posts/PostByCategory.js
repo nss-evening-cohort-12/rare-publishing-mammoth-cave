@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import Post from "./Post";
+import PostCard from './PostCard';
 
 class PostByCategory extends React.Component {
   state = {
@@ -25,12 +25,14 @@ class PostByCategory extends React.Component {
 
   render() {
     const { posts } = this.state;
-    const post = posts.map((post) => <Post key={post.id} post={post} />)
+    const user_id = Number(localStorage.getItem("user_id"))
+    const isAdmin = (localStorage.getItem("isAdmin") === "true")
+    const postCards = posts.map((post) => <PostCard key={post.id} post={post} isEditable={isAdmin || (post.user_id.id === user_id) ? true : false}/>)
     return (
       <div>
         <h1 className="text-center mt-3">Posts By Category</h1>
-        <div className="post-container">
-          {post}
+        <div className="container cardContainer col-10 mw-75 mh-75 text-center">
+          {postCards}
         </div>
       </div>
     )

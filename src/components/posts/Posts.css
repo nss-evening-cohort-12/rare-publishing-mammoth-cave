@@ -14,3 +14,10 @@
   align-items: center;
   color: black;
 }
+
+.cardContainer {
+  height: 750px;
+  width: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
