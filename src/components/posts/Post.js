@@ -7,13 +7,14 @@ import './Post.css';
 class Post extends React.Component {
   
   deletePost = () => {
-    const { post } =this.props
+    const { post, getAllPosts } =this.props
     return fetch(`http://localhost:8000/posts/${post.id}`, {
       method: "DELETE",
         headers: {
           "Authorization": `Token ${localStorage.getItem("rare_user_id")}`}
     }).then(() => {
       this.props.history.push('/posts')
+      getAllPosts()
     })
   }
 
