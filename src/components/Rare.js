@@ -21,6 +21,7 @@ import Tags from './tags/Tags'
 import EditTag from './tags/EditTag'
 import CommentsPost from "./comments/CommentsPost"
 import Comments from "./comments/Comments"
+import SubscribedPosts from './posts/SubscribedPosts'
 
 export const Rare = () => (
     <>
@@ -51,6 +52,16 @@ export const Rare = () => (
             }
         }} />
         
+        <Route exact path="/" render={() => {
+            if (localStorage.getItem("token")) {
+                return <>
+                    <SubscribedPosts />
+                </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
+
         <Route path="/users" render={() => {
             if (localStorage.getItem("token")) {
                 return <>
@@ -213,7 +224,6 @@ export const Rare = () => (
                 return <Redirect to="/login" />
             }
         }} />
-
         
     </>
 )

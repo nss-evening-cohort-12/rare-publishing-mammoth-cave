@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import Post from "./Post"
+import PostCard from "./PostCard"
 import './Posts.css'
+import './PostCard.css'
 
 class MyPosts extends React.Component {
   state = {
@@ -27,15 +28,15 @@ class MyPosts extends React.Component {
   render() {
     const { posts } = this.state;
     const newPost = `/newpost`
-    const post = posts.map((post) => <Post key={post.id} post={post} />)
+    const postCards = posts.map((post) => <PostCard key={post.id} post={post} isEditable={true} />)
     return (
       <div>
         <div className="container post-buttons">
           <Link to={newPost}>Add Post <i className="fas fa-plus-square"></i></Link>
         </div>
         <h1 className="text-center mt-3">My Posts</h1>
-        <div className="post-container">
-          {post}
+        <div className="container cardContainer col-10 mw-75 mh-75 text-center">
+          {postCards}
         </div>
       </div>
     )
