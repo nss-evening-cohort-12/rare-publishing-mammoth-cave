@@ -5,7 +5,7 @@ import Logo from "./raresteak.png"
 
 export const NavBar = () => {
     const history = useHistory()
-
+    const isAdmin = (localStorage.getItem("isAdmin") === "true")
     return (
         <ul className="navbar">
             <li className="navbar__item">
@@ -23,9 +23,15 @@ export const NavBar = () => {
             <li className="navbar__item">
                 <Link className="navbar__link" to="/tags">Tag Manager</Link>
             </li>
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/users">User Manager</Link>
-            </li>
+            {
+                isAdmin ? (
+                    <li className="navbar__item">
+                    <Link className="navbar__link" to="/users">User Manager</Link>
+                </li>    
+                ) : (
+                    ""
+                )
+            }
             {
                 (localStorage.getItem("token") !== null) ?
                     <li className="nav-item">
