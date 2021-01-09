@@ -61,7 +61,8 @@ class SinglePost extends React.Component {
   };
 
   render() {
-    const { post} = this.state;
+    const { post } = this.state;
+    const isAdmin = (localStorage.getItem("isAdmin") === "true")
     const editPost = `/editpost/${post.id}`
     const comments = `/comments/${post.id}`
     console.warn(post)
@@ -69,6 +70,19 @@ class SinglePost extends React.Component {
       <>
       <div className="container d-flex">
       <div className="post d-flex flex-column col-10">
+      <div className="form-check mb-3">
+              {
+                isAdmin ? (
+                  post.approved ? (
+                    <h6>Approved</h6>
+                  ) : (
+                    <h6>Not Approved</h6>
+                  )
+                ) : (
+                  ""
+                )
+              }
+            </div>
         <div className="post-header">
           <h2 className="subject text-center">{post.title}</h2>
         </div>

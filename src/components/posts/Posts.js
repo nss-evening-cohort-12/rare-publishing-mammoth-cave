@@ -29,7 +29,7 @@ class Posts extends React.Component {
     const { posts } = this.state;
     const isAdmin = localStorage.getItem("isAdmin")
     const newPost = `/newpost`
-    const post = posts.map((post) => <Post key={post.id} post={post} />)
+    const post = posts.map((post) => <Post key={post.id} post={post} getAllPosts={this.getAllPosts} />)
     return (
       <div >
         <div className="container post-buttons">
