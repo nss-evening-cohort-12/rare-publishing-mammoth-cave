@@ -62,7 +62,17 @@ export const Rare = () => (
             }
         }} />
 
-        <Route path="/users" render={() => {
+        <Route path="/users/:userId" render={() => {
+            if (localStorage.getItem("token")) {
+                return <>
+                    <DetailedUser />
+                </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
+
+        <Route exact path="/users" render={() => {
             if (localStorage.getItem("token")) {
                 return <>
                         <UsersProvider>
@@ -155,15 +165,7 @@ export const Rare = () => (
         }} />
 
         
-        <Route path="/user/:userId" render={() => {
-            if (localStorage.getItem("token")) {
-                return <>
-                    <DetailedUser />
-                </>
-            } else {
-                return <Redirect to="/login" />
-            }
-        }} />
+     
 
         <Route path="/editcategory/:categoryId" render={() => {
             if (localStorage.getItem("token")) {
