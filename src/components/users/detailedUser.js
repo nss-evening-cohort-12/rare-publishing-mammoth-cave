@@ -1,5 +1,5 @@
 import React from 'react'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import Post from '../posts/Post'
 
 class DetailedUser extends React.Component {
@@ -91,8 +91,9 @@ class DetailedUser extends React.Component {
 
  
   render() {
-    const { posts, sub } = this.state;
+    const { posts, sub, user } = this.state;
     const isAdmin = (localStorage.getItem("isAdmin") === "true")
+    const userPosts = `/usersposts/${user.id}`
     const {bio, created_on, profile_image_url, user_id } = this.state.user;
     return (
       <div className="d-flex row">
@@ -105,7 +106,7 @@ class DetailedUser extends React.Component {
         <div className="profileEmail"><h3>Email: {user_id && user_id.email}</h3></div>
         <div className="CreationDate"><h3>Creation Date: {created_on}</h3></div>
         <div className="profileTyle"><h3>User Type:{user_id && user_id.is_staff ? "Admin" : "Author"}</h3> </div>
-        <div classname="articleCount"><h3>Number of Articles: {posts.count}</h3></div>
+        <Link to={userPosts}><div classname="articleCount"><h3>Number of Articles: {posts.count}</h3></div></Link>
         </div>
         <div className="subscribed mr-auto">{sub && sub.id ? <button className="btn" onClick={this.subUnsub}>Unsubscribe</button> : <button className="btn" onClick={this.subUnsub}> Subscribe</button>}</div>
       </div>
