@@ -4,14 +4,13 @@ import { ApplicationViews } from "./ApplicationViews"
 import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
-import { Users } from "./users/Users"
+import Users  from "./users/Users"
 import MyPosts from './posts/MyPosts'
 import NewPost from './posts/NewPost'
 import Posts from './posts/Posts'
 import SinglePost from './posts/SinglePost'
 import EditPost from './posts/EditPost'
 import PostByCategory from './posts/PostByCategory'
-import { UsersProvider } from "./users/UsersProvider"
 import Categories from "./categories/Categories"
 import NewCategory from './categories/NewCategory'
 import DetailedUser from './users/detailedUser'
@@ -75,9 +74,7 @@ export const Rare = () => (
         <Route exact path="/users" render={() => {
             if (localStorage.getItem("token")) {
                 return <>
-                        <UsersProvider>
-                            <Users />
-                        </UsersProvider>
+                        <Users />
                     </>
             } else {
                 return <Login />
