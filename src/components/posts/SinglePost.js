@@ -65,7 +65,7 @@ class SinglePost extends React.Component {
     const isAdmin = (localStorage.getItem("isAdmin") === "true")
     const editPost = `/editpost/${post.id}`
     const comments = `/comments/${post.id}`
-    console.warn(post)
+    const userDetails = `/users/${post.user_id}`
     return (
       <>
       <div className="container d-flex">
@@ -96,7 +96,7 @@ class SinglePost extends React.Component {
         <img src={post.image_url} />
         </div>
         <div className="d-flex justify-content-between">
-          <span>By {post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</span>
+          <span>By <Link to={userDetails}>{post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</Link></span>
           <Link to= {comments}><button className="btn-primary">View Comments</button></Link>
           <div className="reactions">Reactions To Come</div>
         </div>

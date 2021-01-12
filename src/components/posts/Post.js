@@ -62,6 +62,7 @@ class Post extends React.Component {
     const user_id = localStorage.getItem('user_id')
     const postDetails = `/viewpost/${post.id}`
     const editPost = `/editpost/${post.id}`
+    const userDetails = `/users/${post.user_id.id}`
     const creation_date = moment(post.publication_date).format('L');
     if ( isAdmin || Number(user_id) === post.user_id.id){ 
         return(
@@ -75,7 +76,7 @@ class Post extends React.Component {
       
           <div className=" col-10 post">
       
-          <h6>{post.user_id.user_id.first_name} {post.user_id.user_id.last_name}</h6>
+          <Link to={userDetails}><h6>{post.user_id.user_id.first_name} {post.user_id.user_id.last_name}</h6></Link>
           <Link to={postDetails}><h6 className="col-2">{post.title}</h6></Link>
           <h6 className="col-2 text-center">{creation_date}</h6>
           <h6>{post.category_id.label}</h6>
