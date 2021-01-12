@@ -16,8 +16,6 @@ export const Register = (props) => {
 
     const handleRegister = (e) => {
         e.preventDefault()
-        
-        console.warn(imgUrl.current.files[0])
         if (password.current.value === verifyPassword.current.value) {
             const formdata = new FormData();
             formdata.append("image_file", imgUrl.current.files[0]);
