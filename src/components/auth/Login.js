@@ -30,7 +30,7 @@ export const Login = () => {
                     localStorage.setItem("user_id", res.user_id )
                     localStorage.setItem("token", res.token)
                     localStorage.setItem("isAdmin", res.isAdmin)
-                    history.push("/myposts")
+                    history.push("/")
                 }
                 else {
                     invalidDialog.current.showModal()
@@ -58,7 +58,7 @@ export const Login = () => {
                     </fieldset>
                     <fieldset className="log-field">
                         <label htmlFor="inputPassword"> Password </label>
-                        <input ref={password} type="password" id="password" className="form-control" defaultValue="password" placeholder="Password" required />
+                        <input ref={password} type="password" id="password" className="form-control" defaultValue="me" placeholder="Password" required />
                     </fieldset>
                     <fieldset style={{
                         textAlign:"center"

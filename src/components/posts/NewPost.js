@@ -69,7 +69,7 @@ class NewPost extends React.Component {
       title: subject,
       content: content,
       publication_date: moment(creation_date).format('YYYY-MM-DD'),
-      approved: true,
+      approved: false,
       image_url: "https://tinyurl.com/yyxuqm45",
       tags,
     }

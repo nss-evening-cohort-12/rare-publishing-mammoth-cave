@@ -26,7 +26,6 @@ class EditPost extends React.Component {
 
   setChecks = () => {
     const {all_tags, tags} = this.state
-    console.warn(all_tags)
     const checkboxArr = []
     all_tags.forEach(tag => {
       if (tags.includes(tag.id)) {
@@ -80,6 +79,9 @@ class EditPost extends React.Component {
     .then(res => res.json())
     .then(res => {
       this.setState({ user_id: res.user_id, category_id: res.category_id.id, subject: res.title, content: res.content, image_url: res.image_url, tags: res.tags, approved: res.approved })
+      const incomingTags = []
+      res.tags.forEach(tag => incomingTags.push(tag.id))
+      this.setState({tags: incomingTags})
       this.getAllTags()
     })
   }
@@ -135,12 +137,13 @@ class EditPost extends React.Component {
 
     handleChecked = (e) => {
       let checkedTags = this.state.tags;
+      console.warn(checkedTags)
       if (!checkedTags.includes(Number(e.target.id))) {
         checkedTags.push(Number(e.target.id))
         this.setState({tags: checkedTags})
       }
       else {
-        checkedTags.splice(checkedTags.indexOf(e.target.id), 1)
+        checkedTags.splice(checkedTags.indexOf(Number(e.target.id)), 1)
         this.setState({tags: checkedTags})
       }
 

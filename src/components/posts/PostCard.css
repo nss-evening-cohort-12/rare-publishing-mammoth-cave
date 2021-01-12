@@ -1,0 +1,15 @@
+.postCard {
+    width: 100%;
+    Height: 100%;
+    border: solid black 1px;
+    scroll-snap-align: start;
+}
+
+.postImg {
+  height: 50%;
+  width: 50%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
