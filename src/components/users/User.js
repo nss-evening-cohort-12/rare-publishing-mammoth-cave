@@ -18,19 +18,19 @@ class User extends React.Component {
         <h5>Email: {rareuser.user_id && rareuser.user_id.email}</h5>
         <div className="form-check">
           <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
-            <label className="form-check-label" for="flexCheckDefault">
+            <label className="form-check-label">
               Active
             </label>
         </div>
         <div className="form-check">
           <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></input>
-            <label className="form-check-label" for="flexRadioDefault1">
+            <label className="form-check-label">
               Author
             </label>
         </div>
         <div className="form-check">
           <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></input>
-            <label className="form-check-label" for="flexRadioDefault1">
+            <label className="form-check-label">
               Admin
             </label>
         </div>
