@@ -6,9 +6,14 @@ export const UsersProvider = props => {
   const [users, setUsers] = useState([]);
 
   const getAllUsers = () => {
-    return fetch("http://localhost:8088/users")
+    return fetch(`http://localhost:8000/rareusers`, {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("token")}`}
+    })
       .then(res => res.json())
-      .then(setUsers);
+      .then(res => {
+        this.setState({ users: res.results })
+      })
   }
 
   return(

@@ -1,11 +1,27 @@
-.user-list {
+.usersadmin {
   display: flex;
   padding: 10px;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-content: flex-start;
   background-color: rgb(195, 224, 250);
 }
 
-.user-list:nth-child(odd) {
+.usersadmin:nth-child(odd) {
   background-color: aliceblue;
+}
+
+.usersadmin h5{
+  margin: 0 10px;
+}
+
+.user-container {
+  display: flex;
+  justify-content: center;
+}
+
+.subuser {
+  border: 1px solid black;
+}
+.headuser {
+  margin: auto;
 }

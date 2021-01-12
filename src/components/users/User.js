@@ -1,21 +1,41 @@
 import React from "react";
-import {Link, withRouter} from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 import './User.css'
 
 class User extends React.Component {
   
   render(){
+    const { rareuser } = this.props;
 
-    const { user } = this.props
+    // const userDetails = `/rareuser/${rareuser.id}`;
 
-    const userDetails = `/user/${user.id}`;
+    const blank = 0
+    // blank was inserted for the js to compile and not get mad at me.
 
-  return (
-    <div>
-    <Link to={userDetails}><h5>Name: {user.first_name} {user.last_name}<br/>
-    Email: {user.email}</h5></Link>
-    </div>
-  )
+    return (
+      <div className="row usersadmin">
+        <h5>Name: {rareuser.user_id && rareuser.user_id.username}</h5>
+        <h5>Email: {rareuser.user_id && rareuser.user_id.email}</h5>
+        <div className="form-check">
+          <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
+            <label className="form-check-label" for="flexCheckDefault">
+              Active
+            </label>
+        </div>
+        <div className="form-check">
+          <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></input>
+            <label className="form-check-label" for="flexRadioDefault1">
+              Author
+            </label>
+        </div>
+        <div className="form-check">
+          <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></input>
+            <label className="form-check-label" for="flexRadioDefault1">
+              Admin
+            </label>
+        </div>
+      </div>
+    )
   }
 }
 
