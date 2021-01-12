@@ -1,12 +1,12 @@
 import React from "react";
-import { withRouter} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './User.css'
 
 class User extends React.Component {
   
   render(){
     const { rareuser } = this.props;
-
+    const userDetails = `/users/${rareuser.id}`
     // const userDetails = `/rareuser/${rareuser.id}`;
 
     const blank = 0
@@ -14,7 +14,7 @@ class User extends React.Component {
 
     return (
       <div className="row usersadmin">
-        <h5>Name: {rareuser.user_id && rareuser.user_id.username}</h5>
+        <Link to={userDetails}><h5>Name: {rareuser.user_id && rareuser.user_id.username}</h5></Link>
         <h5>Email: {rareuser.user_id && rareuser.user_id.email}</h5>
         <div className="form-check">
           <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>

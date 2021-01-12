@@ -21,6 +21,8 @@ import EditTag from './tags/EditTag'
 import CommentsPost from "./comments/CommentsPost"
 import Comments from "./comments/Comments"
 import SubscribedPosts from './posts/SubscribedPosts'
+import UserPosts from './posts/UserPosts'
+import User from "./users/User"
 
 export const Rare = () => (
     <>
@@ -161,9 +163,6 @@ export const Rare = () => (
             }
         }} />
 
-        
-     
-
         <Route path="/editcategory/:categoryId" render={() => {
             if (localStorage.getItem("token")) {
                 return <>
@@ -223,6 +222,16 @@ export const Rare = () => (
                 return <Redirect to="/login" />
             }
         }} />
-        
+
+        <Route path="/usersposts/:userId" render={() => {
+            if (localStorage.getItem("token")) {
+                return <>
+                    <UserPosts />
+                </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
+
     </>
 )
