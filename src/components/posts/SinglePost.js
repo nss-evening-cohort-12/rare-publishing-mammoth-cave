@@ -65,7 +65,7 @@ class SinglePost extends React.Component {
     const isAdmin = (localStorage.getItem("isAdmin") === "true")
     const editPost = `/editpost/${post.id}`
     const comments = `/comments/${post.id}`
-    const userDetails = `/users/${post.user_id}`
+    const userDetails = `/users/${post.user_id && post.user_id.user_id.id}`
     return (
       <>
       <div className="container d-flex">
