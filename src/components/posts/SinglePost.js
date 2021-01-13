@@ -92,8 +92,8 @@ class SinglePost extends React.Component {
           </span>
           <h3 className="category">{post.category_id && post.category_id.label}</h3>
         </div>
-        <div className="text-center">
-        <img src={post.image_url} />
+        <div className="singlePostImgDiv d-flex justify-content-center text-center">
+        <img className="postImg" src={post.image_url} />
         </div>
         <div className="d-flex justify-content-between">
           <span>By <Link to={userDetails}>{post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</Link></span>

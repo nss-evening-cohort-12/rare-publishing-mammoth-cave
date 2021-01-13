@@ -24,3 +24,15 @@
   margin: 10px;
   padding: 5px;
 }
+
+.postImg {
+  width: auto;
+  max-height: 75%;
+  object-fit: cover;
+}
+
+.singlePostImgDiv {
+  max-width: 75%;
+  max-height: 75%;
+  object-fit: cover;
+}

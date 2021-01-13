@@ -52,7 +52,7 @@ class Post extends React.Component {
        <div className="postCard d-flex flex-wrap justify-content-between w-100 h-100">
           <Link to={postDetails}><div className="title mr-auto m-4"><h2> {post.title}</h2></div></Link>
           <div className="postDate m-4  text-right"><h4>Publication Date: {post.publication_date}</h4></div>
-          <div className="postImg justify-content-center col-12"> <img src={post.image_url} /></div>
+          <div className="postImgDiv justify-content-center col-12"> <img className="postImg" src={post.image_url} /></div>
           <Link to={userDetails}><div className="author m-5 float-left"><h5>Author: {post.user_id.user_id.first_name} {post.user_id.user_id.last_name}</h5></div></Link>
           <div className="d-flex justify-content-aroundt m-5">
           <div className="reactionCount float-left m-4"> reaction count</div>
