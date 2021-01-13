@@ -5,6 +5,8 @@ import moment from 'moment';
 import Checkboxes from '../tags/checkboxes';
 
 class NewPost extends React.Component {
+  fileInput = React.createRef();
+  
   state = {
     category_id: 1,
     subject: '',
@@ -63,6 +65,17 @@ class NewPost extends React.Component {
     const user_id = localStorage.getItem("user_id")
     const creation_date = Date.now()
 
+    const formdata = new FormData();
+    formdata.append("image_file", this.fileInput.current.files[0]);
+
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+    return fetch("http://127.0.0.1:8000/images", requestOptions
+    ).then(resp => resp.json())
+    .then( resp => {
     const new_post = {
       user_id,
       category_id: category_id,
@@ -70,7 +83,7 @@ class NewPost extends React.Component {
       content: content,
       publication_date: moment(creation_date).format('YYYY-MM-DD'),
       approved: false,
-      image_url: "https://tinyurl.com/yyxuqm45",
+      image_url: resp.image_file,
       tags,
     }
     fetch("http://127.0.0.1:8000/posts", {
@@ -87,7 +100,8 @@ class NewPost extends React.Component {
       .then(res => {
         this.props.history.push('/posts')
       })
-  }
+  })
+}
 
 
   handleChecked = (e) => {
@@ -112,6 +126,10 @@ class NewPost extends React.Component {
           <div className="form-group">
             <label htmlFor="subject">Subject</label>
             <input type="text" className="form-control" id="subject" placeholder="subject" onChange={this.changeSubjectEvent} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="postImg">Image</label>
+            <input type="file" className="form-control" id="postImg" name="postImg" ref={this.fileInput}/>
           </div>
           <div className="form-group">
             <label htmlFor="content">Content</label>

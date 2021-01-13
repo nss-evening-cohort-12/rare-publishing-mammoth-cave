@@ -1,6 +1,7 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import Post from '../posts/Post'
+import './detailedUser.css'
 
 class DetailedUser extends React.Component {
   
@@ -98,7 +99,7 @@ class DetailedUser extends React.Component {
     return (
       <div className="d-flex row">
         <div className="ml-auto">
-        <div className="profileImg"><img src={profile_image_url} /></div>
+        <div className="profileImgDiv"><img className="profileImg" src={profile_image_url} /></div>
         <div className="profileName"><h3>Name: {user_id && user_id.first_name} {user_id && user_id.last_name} </h3></div>
         </div>
         <div className="profileText m-5">
