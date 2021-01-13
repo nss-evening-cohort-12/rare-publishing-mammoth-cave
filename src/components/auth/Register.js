@@ -16,18 +16,28 @@ export const Register = (props) => {
 
     const handleRegister = (e) => {
         e.preventDefault()
-
         if (password.current.value === verifyPassword.current.value) {
-            const newUser = {
-                "username": email.current.value,
-                "first_name": firstName.current.value,
-                "last_name": lastName.current.value,
-                "email": email.current.value,
-                "password": password.current.value,
-                "bio": bio.current.value,
-                "imgUrl": imgUrl.current.value,
-            }
-    
+            const formdata = new FormData();
+            formdata.append("image_file", imgUrl.current.files[0]);
+
+            var requestOptions = {
+              method: 'POST',
+              body: formdata,
+              redirect: 'follow'
+            };
+            return fetch("http://127.0.0.1:8000/images", requestOptions
+            ).then(resp => resp.json())
+            .then( resp => {
+
+                const newUser = {
+                    "username": email.current.value,
+                    "first_name": firstName.current.value,
+                    "last_name": lastName.current.value,
+                    "email": email.current.value,
+                    "password": password.current.value,
+                    "bio": bio.current.value,
+                    "imgUrl": resp.image_file,
+                }
             return fetch("http://127.0.0.1:8000/register", {
                 method: "POST",
                 headers: {
@@ -45,10 +55,13 @@ export const Register = (props) => {
                         history.push("/")
                     }
                 })
+            })
         } else {
             passwordDialog.current.showModal()
         }
     }
+
+    
 
     return (
         <main style={{ textAlign: "center" }}>
@@ -87,7 +100,7 @@ export const Register = (props) => {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="imgUrl">Profile Image </label>
-                    <input type="text" ref={imgUrl} name="imgUrl" className="form-control" placeholder="A website link to a picture of you!" required />
+                    <input type="file" ref={imgUrl} name="imgUrl" className="form-control" placeholder="A picture of you!" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="bio"> Bio </label>
