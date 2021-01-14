@@ -1,23 +1,18 @@
 import React from "react";
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 import './User.css'
 
 class User extends React.Component {
   
   render(){
-    const { rareuser } = this.props;
-    const userDetails = `/users/${rareuser.id}`
-    // const userDetails = `/rareuser/${rareuser.id}`;
-
-    const blank = 0
-    // blank was inserted for the js to compile and not get mad at me.
+    const { rareuser, changeActiveEvent } = this.props;
 
     return (
       <div className="row usersadmin">
-        <Link to={userDetails}><h5>Name: {rareuser.user_id && rareuser.user_id.username}</h5></Link>
+        <h5>Name: {rareuser.user_id && rareuser.user_id.username}</h5>
         <h5>Email: {rareuser.user_id && rareuser.user_id.email}</h5>
         <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
+          <input className="form-check-input" onChange={changeActiveEvent} type="checkbox" value={rareuser.active} id={rareuser.id}></input>
             <label className="form-check-label">
               Active
             </label>

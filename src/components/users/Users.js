@@ -6,10 +6,16 @@ import User from './User'
 class Users extends React.Component {
   state = {
     rareusers: [],
+    active:'',
   }
 
   componentDidMount() {
     this.getAllUsers();
+  }
+
+  changeActiveEvent = (e) => {
+    e.preventDefault();
+    this.setState({ active: e.target.value });
   }
 
   getAllUsers = () => {
@@ -22,7 +28,7 @@ class Users extends React.Component {
         this.setState({ rareusers: res.results })
       })
   }
-  render(){
+  render() {
     const { rareusers } = this.state;
     const rareuser = rareusers.map((rareuser) => <User key={rareuser.id} rareuser={rareuser} getAllUsers={this.getAllUsers} />)
     return (
