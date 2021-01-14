@@ -28,7 +28,7 @@ class Reactions extends React.Component {
         const { postId } = this.props
         const singleReactions = reactions.map((Reaction) => <SingleReaction reaction={Reaction} postId={postId} />)
         return (
-            <div>{singleReactions}</div>
+            <div>{postId && singleReactions}</div>
 
         )
     }

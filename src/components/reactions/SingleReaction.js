@@ -1,4 +1,5 @@
 import React from 'react';
+import './singleReaction.css'
 
 
 
@@ -33,7 +34,7 @@ class SingleReaction extends React.Component {
         const { reaction } = this.props
         return (
             <>
-                <img src={reaction.img_url} /><span>{postReactions.count}</span>
+                <img className="reaction"src={reaction.img_url} /><span className="count">{postReactions.count}</span>
             </>
         )
     }
