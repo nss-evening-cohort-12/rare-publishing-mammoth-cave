@@ -1,4 +1,4 @@
-.usersadmin {
+.useradmin {
   display: flex;
   padding: 10px;
   justify-content: flex-start;
@@ -6,11 +6,11 @@
   background-color: rgb(195, 224, 250);
 }
 
-.usersadmin:nth-child(odd) {
+.useradmin:nth-child(odd) {
   background-color: aliceblue;
 }
 
-.usersadmin h5{
+.useradmin h5{
   margin: 0 10px;
 }
 
@@ -21,6 +21,8 @@
 
 .subuser {
   border: 1px solid black;
+  margin: auto;
+  padding: 0px;
 }
 .headuser {
   margin: auto;

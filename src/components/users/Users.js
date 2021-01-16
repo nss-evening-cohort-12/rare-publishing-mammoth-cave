@@ -28,14 +28,19 @@ class Users extends React.Component {
         this.setState({ rareusers: res.results })
       })
   }
+<<<<<<< HEAD
   render() {
+=======
+  
+  render(){
+>>>>>>> main
     const { rareusers } = this.state;
     const rareuser = rareusers.map((rareuser) => <User key={rareuser.id} rareuser={rareuser} getAllUsers={this.getAllUsers} />)
     return (
-      <div className="col-10 headuser">
+      <div className="col-12 headuser">
         <h1 className="text-center mt-3">All Users</h1>
         <div className="user-container">
-          <div className="col-8 subuser">
+          <div className="col-10 subuser">
             {rareuser}
           </div>
         </div>  

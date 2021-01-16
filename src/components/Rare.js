@@ -23,6 +23,7 @@ import Comments from "./comments/Comments"
 import SubscribedPosts from './posts/SubscribedPosts'
 import UserPosts from './posts/UserPosts'
 import User from "./users/User"
+import AllReactions from "./reactions/AllReactions"
 
 export const Rare = () => (
     <>
@@ -232,6 +233,14 @@ export const Rare = () => (
                 return <Redirect to="/login" />
             }
         }} />
-
+        <Route path="/reactions" render={() => {
+            if (localStorage.getItem("token")) {
+                return <>
+                    <AllReactions />
+                    </>
+            } else {
+                return <Redirect to="/login" />
+            }
+        }} />
     </>
 )
