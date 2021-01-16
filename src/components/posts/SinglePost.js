@@ -99,7 +99,7 @@ class SinglePost extends React.Component {
         <div className="d-flex justify-content-between">
           <span>By <Link to={userDetails}>{post.user_id && post.user_id.user_id.first_name} {post.user_id && post.user_id.user_id.last_name}</Link></span>
           <Link to= {comments}><button className="btn-primary">View Comments</button></Link>
-          <div className="reactions">{post.id && <Reactions postId={post.id} />}</div>
+          <div className="reactions">{post.id && <Reactions postId={post.id} />}{isAdmin ? <Link to="/reactions"><i class="fas fa-plus"></i></Link>: ""}</div>
         </div>
         </div>
         <div className="postTags d-flex">

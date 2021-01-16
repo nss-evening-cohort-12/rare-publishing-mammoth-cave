@@ -5,6 +5,12 @@ import { confirmAlert } from 'react-confirm-alert'
 import './PostCard.css';
 
 class Post extends React.Component {
+  state = {
+    reactions: [],
+  }
+  componentDidMount() {
+    this.getReactions();
+  }
   
   deletePost = () => {
     const { post } =this.props
@@ -37,9 +43,22 @@ class Post extends React.Component {
     });
   };
 
+  getReactions = () => {
+    const { post } = this.props
+    return fetch(`http://localhost:8000/postreactions?post_id=${post.id}`, {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem("token")}`}
+    })
+    .then(res => res.json())
+    .then((res) => {
+      this.setState({reactions: res})
+    })
+  }
+
 
   render() {
     const isAdmin = (localStorage.getItem("isAdmin") === "true")
+    const { reactions } = this.state;
     const { post, isEditable } = this.props;
     const user_id = localStorage.getItem('user_id')
     const postDetails = `/viewpost/${post.id}`
@@ -55,7 +74,7 @@ class Post extends React.Component {
           <div className="postImgDiv justify-content-center col-12"> <img className="postImg" src={post.image_url} /></div>
           <Link to={userDetails}><div className="author m-5 float-left"><h5>Author: {post.user_id.user_id.first_name} {post.user_id.user_id.last_name}</h5></div></Link>
           <div className="d-flex justify-content-aroundt m-5">
-          <div className="reactionCount float-left m-4"> reaction count</div>
+          <div className="reactionCount float-left m-4">Reactions: {reactions.count} </div>
           <div className="editDelete m-4"> {isEditable ? <span>
           <Link to={editPost}><i className="fas fa-edit"></i></Link>    
           <i className="fas fa-trash-alt mr-3" onClick={this.deletePostEvent}></i> 
