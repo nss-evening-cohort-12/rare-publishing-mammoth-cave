@@ -28,12 +28,8 @@ class Users extends React.Component {
         this.setState({ rareusers: res.results })
       })
   }
-<<<<<<< HEAD
-  render() {
-=======
   
   render(){
->>>>>>> main
     const { rareusers } = this.state;
     const rareuser = rareusers.map((rareuser) => <User key={rareuser.id} rareuser={rareuser} getAllUsers={this.getAllUsers} />)
     return (
